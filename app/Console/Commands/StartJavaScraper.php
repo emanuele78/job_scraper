@@ -38,8 +38,7 @@
 		public function handle() {
 			
 			$this->line('Starting the java scraper program');
-			$this->line('java -jar ' . config('app.java_scraper_path') . ' 2>&1');
-			exec('java -jar ' . config('app.java_scraper_path') . ' 2>&1');
+			exec('java -jar ' . config('app.java_scraper_path'));
 			$this->line('Scraping finished');
 		}
 	}
