@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Controllers\Api;
 	
+	use App\Services\OauthClientService;
 	use App\User;
 	use Illuminate\Http\Request;
 	use App\Http\Controllers\Controller;
@@ -30,67 +31,16 @@
 			return response(['success' => true, 'email' => $user->email], 200);
 		}
 		
-		public function login(Request $request) {
+		public function login(Request $request, OauthClientService $oauthClientService) {
 			
-			if (config('app.debug')) {
-				$client = new \GuzzleHttp\Client(
-				  [
-					'curl' => array(CURLOPT_SSL_VERIFYPEER => false),
-					'verify' => false
-				  ]);
-				$base_url = config('app.development_base_url');
-			} else {
-				$client = new \GuzzleHttp\Client();
-				$base_url = config('app.production_base_url');
-			}
-			try {
-				$response = $client->request(
-				  'POST', $base_url . '/oauth/token', [
-				  'form_params' => [
-					'grant_type' => 'password',
-					'client_id' => config('app.oauthClientId'),
-					'client_secret' => config('app.oauthClientSecret'),
-					'username' => $request->email,
-					'password' => $request->password,
-					'scope' => '',
-				  ],
-				]);
-				$data = json_decode($response->getBody(), true);
-				return response(['success' => true, 'data' => $data], 200);
-			} catch (\Exception $e) {
-				return response(['success' => false, 'error' => $e->getMessage()], 401);
-			}
+			return $oauthClientService->login($request->email, $request->password);
+			
 		}
 		
-		public function refreshToken(Request $request) {
+		public function refreshToken(Request $request, OauthClientService $oauthClientService) {
 			
-			if (config('app.debug')) {
-				$client = new \GuzzleHttp\Client(
-				  [
-					'curl' => array(CURLOPT_SSL_VERIFYPEER => false),
-					'verify' => false
-				  ]);
-				$base_url = config('app.development_base_url');
-			} else {
-				$client = new \GuzzleHttp\Client();
-				$base_url = config('app.production_base_url');
-			}
-			try {
-				$response = $client->request(
-				  'POST', $base_url . '/oauth/token', [
-				  'form_params' => [
-					'grant_type' => 'refresh_token',
-					'refresh_token' => $request->refresh_token,
-					'client_id' => config('app.oauthClientId'),
-					'client_secret' => config('app.oauthClientSecret'),
-					'scope' => '',
-				  ],
-				]);
-				$data = json_decode($response->getBody(), true);
-				return response(['success' => true, 'data' => $data], 200);
-			} catch (\Exception $e) {
-				return response(['success' => false, 'error' => $e->getMessage()], 401);
-			}
+			return $oauthClientService->refreshToken($request->refresh_token);
+			
 		}
 		
 		public function logout() {
