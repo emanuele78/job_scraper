@@ -7,6 +7,7 @@
 	  'java_scraper_path' => env('JAVA_SCRAPER_PATH'),
 	  'production_base_url' => env('PRODUCTION_BASE_URL'),
 	  'development_base_url' => env('DEVELOPMENT_BASE_URL'),
+	  'max_keyword_length' => env('MIX_MAX_KEYWORD_LENGTH'),
 		
 		/*
 		|--------------------------------------------------------------------------

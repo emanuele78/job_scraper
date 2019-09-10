@@ -2275,6 +2275,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(process) {//
 //
 //
 //
@@ -2285,8 +2286,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-var maxLenght = 25;
+var maxLenght = process.env.MIX_MAX_KEYWORD_LENGTH;
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     keywords: {
@@ -2316,6 +2316,7 @@ var maxLenght = 25;
     }
   }
 });
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 

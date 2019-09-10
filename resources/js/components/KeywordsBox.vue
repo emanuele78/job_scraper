@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    const maxLenght = 25;
+    const maxLenght = process.env.MIX_MAX_KEYWORD_LENGTH;
     export default {
         props: {
             keywords: {
