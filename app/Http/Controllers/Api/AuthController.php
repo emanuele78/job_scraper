@@ -38,12 +38,14 @@
 					'curl' => array(CURLOPT_SSL_VERIFYPEER => false),
 					'verify' => false
 				  ]);
+				$base_url = config('app.development_base_url');
 			} else {
 				$client = new \GuzzleHttp\Client();
+				$base_url = config('app.production_base_url');
 			}
 			try {
 				$response = $client->request(
-				  'POST', 'https://jobscraper.dev/oauth/token', [
+				  'POST', $base_url . '/oauth/token', [
 				  'form_params' => [
 					'grant_type' => 'password',
 					'client_id' => config('app.oauthClientId'),
@@ -68,12 +70,14 @@
 					'curl' => array(CURLOPT_SSL_VERIFYPEER => false),
 					'verify' => false
 				  ]);
+				$base_url = config('app.development_base_url');
 			} else {
 				$client = new \GuzzleHttp\Client();
+				$base_url = config('app.production_base_url');
 			}
 			try {
 				$response = $client->request(
-				  'POST', 'https://jobscraper.dev/oauth/token', [
+				  'POST', $base_url . '/oauth/token', [
 				  'form_params' => [
 					'grant_type' => 'refresh_token',
 					'refresh_token' => $request->refresh_token,

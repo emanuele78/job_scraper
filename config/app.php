@@ -5,6 +5,8 @@
 	  'oauthClientId' => env('OAUTH_CLIENT_ID'),
 	  'oauthClientSecret' => env('OAUTH_CLIENT_SECRET'),
 	  'java_scraper_path' => env('JAVA_SCRAPER_PATH'),
+	  'production_base_url' => env('PRODUCTION_BASE_URL'),
+	  'development_base_url' => env('DEVELOPMENT_BASE_URL'),
 		
 		/*
 		|--------------------------------------------------------------------------
