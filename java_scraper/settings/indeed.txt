@@ -1,0 +1,5 @@
+RADIUS=25
+POSTS_TO_SCRAPE=200
+#do not change
+POSTS_PER_PAGE=50
+SORT_BY=date
