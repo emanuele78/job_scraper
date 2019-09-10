@@ -16,6 +16,7 @@ import emanuelemazzante.dev.jobscraper.model.JobPost;
 import emanuelemazzante.dev.jobscraper.util.DbUtils;
 import emanuelemazzante.dev.jobscraper.model.ScraperBase;
 import emanuelemazzante.dev.jobscraper.model.ScraperReport;
+import emanuelemazzante.dev.jobscraper.util.Utils;
 
 public class ManPower extends ScraperBase {
 
@@ -34,7 +35,7 @@ public class ManPower extends ScraperBase {
 
     private boolean readSettings() {
         boolean proceed = true;
-        File file = new File(System.getProperty("user.dir") + "/settings/manpower.txt");
+        File file = new File(Utils.getExecutablePath() + "/settings/manpower.txt");
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(file));

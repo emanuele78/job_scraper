@@ -14,6 +14,7 @@ import emanuelemazzante.dev.jobscraper.model.JobPost;
 import emanuelemazzante.dev.jobscraper.util.DbUtils;
 import emanuelemazzante.dev.jobscraper.model.ScraperBase;
 import emanuelemazzante.dev.jobscraper.model.ScraperReport;
+import emanuelemazzante.dev.jobscraper.util.Utils;
 import java.util.Calendar;
 
 /**
@@ -40,7 +41,7 @@ public class Indeed extends ScraperBase {
 
     private boolean readSettings() {
         boolean proceed = true;
-        File file = new File(System.getProperty("user.dir") + "/settings/indeed.txt");
+        File file = new File(Utils.getExecutablePath() + "/settings/indeed.txt");
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(file));

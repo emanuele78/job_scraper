@@ -18,6 +18,8 @@ import emanuelemazzante.dev.jobscraper.scrapers.Subito;
 import emanuelemazzante.dev.jobscraper.util.DbUtils;
 import emanuelemazzante.dev.jobscraper.model.ScraperObject;
 import emanuelemazzante.dev.jobscraper.scrapers.Linkedin;
+import emanuelemazzante.dev.jobscraper.util.Utils;
+import java.io.File;
 
 public class Main {
 
@@ -31,7 +33,7 @@ public class Main {
         System.setProperty("https.proxyPort", "8888");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //getting region
         String region = "marche";
         if (args.length == 1) {

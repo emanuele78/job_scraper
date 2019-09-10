@@ -19,7 +19,7 @@ public class Connection {
     private static String port;
 
     static {
-        File file = new File(System.getProperty("user.dir") + "/settings/db_connection.txt");
+        File file = new File(Utils.getExecutablePath() + "/settings/db_connection.txt");
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(file));

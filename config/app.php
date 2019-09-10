@@ -4,6 +4,7 @@
 	  
 	  'oauthClientId' => env('OAUTH_CLIENT_ID'),
 	  'oauthClientSecret' => env('OAUTH_CLIENT_SECRET'),
+	  'java_scraper_path' => env('JAVA_SCRAPER_PATH'),
 		
 		/*
 		|--------------------------------------------------------------------------

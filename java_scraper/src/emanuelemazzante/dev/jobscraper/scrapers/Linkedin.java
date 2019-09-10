@@ -9,6 +9,7 @@ import emanuelemazzante.dev.jobscraper.model.JobPost;
 import emanuelemazzante.dev.jobscraper.model.ScraperBase;
 import emanuelemazzante.dev.jobscraper.model.ScraperReport;
 import emanuelemazzante.dev.jobscraper.util.DbUtils;
+import emanuelemazzante.dev.jobscraper.util.Utils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -42,7 +43,7 @@ public class Linkedin extends ScraperBase {
 
     private boolean readSettings() {
         boolean proceed = true;
-        File file = new File(System.getProperty("user.dir") + "/settings/linkedin.txt");
+        File file = new File(Utils.getExecutablePath() + "/settings/linkedin.txt");
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(file));
