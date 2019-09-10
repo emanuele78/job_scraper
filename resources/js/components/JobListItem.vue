@@ -17,7 +17,7 @@
 				<span class="text-muted">regione <strong>{{post.region | uppercase}}</strong></span>
 				<span class="text-muted">pubblicato il {{post.published_at_date | localize}}</span>
 			</div>
-			<div class="post_info">
+			<div class="post_info my-1">
 				<span class="text-muted">luogo {{post.place | uppercase}}</span>
 				<div class="">
 					<button @click="updatePostsStatus(true)" class="btn btn-primary btn-sm mr-2" type="button" v-if="showArchivePostButton">Archivia</button>

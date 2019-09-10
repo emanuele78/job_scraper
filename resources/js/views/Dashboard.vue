@@ -31,7 +31,7 @@
 						@changeShowOnly="changeShowOnly($event)"
 				/>
 			</div>
-			<div class="col">
+			<div class="col-9">
 				<div class="d-flex justify-content-between mt-3">
 					<div class="">
 						<app-post-marking-tool-box
@@ -63,7 +63,7 @@
 				</div>
 				<hr>
 				<div class="row">
-					<div class="col">
+					<div class="col-12">
 						<app-job-list-item
 								:explicit-ask-post-status-change="showOnly != 'all'"
 								:is-auth="isAuth"
@@ -73,8 +73,9 @@
 								:show-move-to-inbox-button="activeLabel=='archive'"
 								@updatePostsReadStatus="updatePostsReadStatus($event)"
 								@updatePostsStatus="updatePostsStatus($event)"
-								v-for="jobPost in jobPosts">
+								v-for="(jobPost, index) in jobPosts">
 							<app-custom-label-assign
+									:index="index"
 									:current-label="jobPost.assigned_labels.length>0?jobPost.assigned_labels[0]:null"
 									:labels="assignedLabels"
 									@assignCustomLabelToPost="assignCustomLabelToPost({label: $event, postId: jobPost.id})"

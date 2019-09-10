@@ -181,6 +181,7 @@ export default new Vuex.Store({
                 }
                 dispatch('saveSearchResponseData', res.data);
                 dispatch('showLoading', false);
+                window.scrollTo(0,0);
             } catch (e) {
                 dispatch('showLoading', false);
                 if (e.response.status === 401) {

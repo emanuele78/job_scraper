@@ -4,10 +4,10 @@
 			<span :class="'bg-'+currentLabel.color" class="custom_label"><span @click="removeCustomLabelFromPost(currentLabel.name)" class="custom_label_delete pl-1 pr-2">x</span>{{currentLabel.name}}</span>
 		</div>
 		<div :class="{show: expandDropdown}" class="dropdown" v-else>
-			<button @click="showList()" aria-haspopup="true" class="btn btn-outline-dark btn-sm dropdown-toggle" data-toggle="dropdown" id="dropdownCustomLabel" type="button">
+			<button :id="'dropdownCustomLabel-'+index" aria-haspopup="true" class="btn btn-outline-dark btn-sm dropdown-toggle" data-toggle="dropdown" type="button">
 				{{textToShow}}
 			</button>
-			<div :class="{show: expandDropdown}" aria-labelledby="dropdownCustomLabel" class="dropdown-menu">
+			<div :aria-labelledby="'dropdownCustomLabel-'+index" :class="{show: expandDropdown}" class="dropdown-menu" v-on-clickaway="showList">
 				<button @click="assignCustomLabelToPost(label)" class="dropdown-item label_element" type="button" v-for="label in labels">
 					<span :class="'bg-'+label.color" class="label_tag"></span>
 					<span class="pl-2">{{label.name}}</span>
@@ -17,6 +17,8 @@
 	</div>
 </template>
 <script>
+    import {mixin as clickaway} from 'vue-clickaway';
+
     export default {
         props: {
             labels: {
@@ -26,6 +28,10 @@
             currentLabel: {
                 type: Object,
                 default: null
+            },
+            index: {
+                type: Number,
+                required: true,
             }
         },
         data() {
@@ -45,15 +51,21 @@
                     this.$emit('assignCustomLabelToPost', label);
                 }
             },
-            showList() {
+            showList(event) {
                 if (this.labels.length) {
-                    this.expandDropdown = !this.expandDropdown;
+                    // this.expandDropdown = !this.expandDropdown;
+                    if (event.srcElement.id === 'dropdownCustomLabel-' + this.index) {
+                        this.expandDropdown = !this.expandDropdown;
+                    } else {
+                        this.expandDropdown = false;
+                    }
                 }
             },
             removeCustomLabelFromPost(labelname) {
                 this.$emit('removeCustomLabelFromPost', labelname);
             }
-        }
+        },
+        mixins: [clickaway],
     }
 </script>
 <style lang="scss">

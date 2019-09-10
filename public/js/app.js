@@ -1918,10 +1918,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -1981,6 +1977,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-clickaway */ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js");
+/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_clickaway__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -1999,6 +1997,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     labels: {
@@ -2008,6 +2007,10 @@ __webpack_require__.r(__webpack_exports__);
     currentLabel: {
       type: Object,
       "default": null
+    },
+    index: {
+      type: Number,
+      required: true
     }
   },
   data: function data() {
@@ -2027,15 +2030,21 @@ __webpack_require__.r(__webpack_exports__);
         this.$emit('assignCustomLabelToPost', label);
       }
     },
-    showList: function showList() {
+    showList: function showList(event) {
       if (this.labels.length) {
-        this.expandDropdown = !this.expandDropdown;
+        // this.expandDropdown = !this.expandDropdown;
+        if (event.srcElement.id === 'dropdownCustomLabel-' + this.index) {
+          this.expandDropdown = !this.expandDropdown;
+        } else {
+          this.expandDropdown = false;
+        }
       }
     },
     removeCustomLabelFromPost: function removeCustomLabelFromPost(labelname) {
       this.$emit('removeCustomLabelFromPost', labelname);
     }
-  }
+  },
+  mixins: [vue_clickaway__WEBPACK_IMPORTED_MODULE_0__["mixin"]]
 });
 
 /***/ }),
@@ -2383,6 +2392,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-clickaway */ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js");
+/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_clickaway__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2395,6 +2406,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     sortTypes: {
@@ -2415,8 +2427,16 @@ __webpack_require__.r(__webpack_exports__);
     changeOrder: function changeOrder(order) {
       this.expandDropdown = false;
       this.$emit('changeOrder', order);
+    },
+    toggleDropdown: function toggleDropdown(event) {
+      if (event.srcElement.id === 'dropdownOrderingMode') {
+        this.expandDropdown = !this.expandDropdown;
+      } else {
+        this.expandDropdown = false;
+      }
     }
-  }
+  },
+  mixins: [vue_clickaway__WEBPACK_IMPORTED_MODULE_0__["mixin"]]
 });
 
 /***/ }),
@@ -2659,6 +2679,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-clickaway */ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js");
+/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_clickaway__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2671,6 +2693,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     postsPerPage: {
@@ -2691,8 +2714,16 @@ __webpack_require__.r(__webpack_exports__);
     changePostsPerPage: function changePostsPerPage(value) {
       this.expandDropdown = false;
       this.$emit('changePostsPerPage', value);
+    },
+    toggleDropdown: function toggleDropdown(event) {
+      if (event.srcElement.id === 'dropdownPostPerPage') {
+        this.expandDropdown = !this.expandDropdown;
+      } else {
+        this.expandDropdown = false;
+      }
     }
-  }
+  },
+  mixins: [vue_clickaway__WEBPACK_IMPORTED_MODULE_0__["mixin"]]
 });
 
 /***/ }),
@@ -2877,6 +2908,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -23541,6 +23573,100 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/vue-clickaway/dist/vue-clickaway.common.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+Vue = 'default' in Vue ? Vue['default'] : Vue;
+
+var version = '2.2.2';
+
+var compatible = (/^2\./).test(Vue.version);
+if (!compatible) {
+  Vue.util.warn('VueClickaway ' + version + ' only supports Vue 2.x, and does not support Vue ' + Vue.version);
+}
+
+
+
+// @SECTION: implementation
+
+var HANDLER = '_vue_clickaway_handler';
+
+function bind(el, binding, vnode) {
+  unbind(el);
+
+  var vm = vnode.context;
+
+  var callback = binding.value;
+  if (typeof callback !== 'function') {
+    if (true) {
+      Vue.util.warn(
+        'v-' + binding.name + '="' +
+        binding.expression + '" expects a function value, ' +
+        'got ' + callback
+      );
+    }
+    return;
+  }
+
+  // @NOTE: Vue binds directives in microtasks, while UI events are dispatched
+  //        in macrotasks. This causes the listener to be set up before
+  //        the "origin" click event (the event that lead to the binding of
+  //        the directive) arrives at the document root. To work around that,
+  //        we ignore events until the end of the "initial" macrotask.
+  // @REFERENCE: https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
+  // @REFERENCE: https://github.com/simplesmiler/vue-clickaway/issues/8
+  var initialMacrotaskEnded = false;
+  setTimeout(function() {
+    initialMacrotaskEnded = true;
+  }, 0);
+
+  el[HANDLER] = function(ev) {
+    // @NOTE: this test used to be just `el.containts`, but working with path is better,
+    //        because it tests whether the element was there at the time of
+    //        the click, not whether it is there now, that the event has arrived
+    //        to the top.
+    // @NOTE: `.path` is non-standard, the standard way is `.composedPath()`
+    var path = ev.path || (ev.composedPath ? ev.composedPath() : undefined);
+    if (initialMacrotaskEnded && (path ? path.indexOf(el) < 0 : !el.contains(ev.target))) {
+      return callback.call(vm, ev);
+    }
+  };
+
+  document.documentElement.addEventListener('click', el[HANDLER], false);
+}
+
+function unbind(el) {
+  document.documentElement.removeEventListener('click', el[HANDLER], false);
+  delete el[HANDLER];
+}
+
+var directive = {
+  bind: bind,
+  update: function(el, binding) {
+    if (binding.value === binding.oldValue) return;
+    bind(el, binding);
+  },
+  unbind: unbind,
+};
+
+var mixin = {
+  directives: { onClickaway: directive },
+};
+
+exports.version = version;
+exports.directive = directive;
+exports.mixin = mixin;
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/App.vue?vue&type=template&id=f348271a&":
 /*!*******************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a& ***!
@@ -23611,11 +23737,9 @@ var render = function() {
             _c("app-navbar"),
             _vm._v(" "),
             _c("router-view", { staticClass: "position-relative" }, [
-              _c("div", {}, [
-                _vm.isLoading
-                  ? _c("div", { staticClass: "work_in_progress" })
-                  : _vm._e()
-              ])
+              _vm.isLoading
+                ? _c("div", { staticClass: "work_in_progress" })
+                : _vm._e()
             ]),
             _vm._v(" "),
             _vm.isLoading
@@ -23725,15 +23849,10 @@ var render = function() {
               {
                 staticClass: "btn btn-outline-dark btn-sm dropdown-toggle",
                 attrs: {
+                  id: "dropdownCustomLabel-" + _vm.index,
                   "aria-haspopup": "true",
                   "data-toggle": "dropdown",
-                  id: "dropdownCustomLabel",
                   type: "button"
-                },
-                on: {
-                  click: function($event) {
-                    return _vm.showList()
-                  }
                 }
               },
               [_vm._v("\n\t\t\t" + _vm._s(_vm.textToShow) + "\n\t\t")]
@@ -23742,9 +23861,17 @@ var render = function() {
             _c(
               "div",
               {
+                directives: [
+                  {
+                    name: "on-clickaway",
+                    rawName: "v-on-clickaway",
+                    value: _vm.showList,
+                    expression: "showList"
+                  }
+                ],
                 staticClass: "dropdown-menu",
                 class: { show: _vm.expandDropdown },
-                attrs: { "aria-labelledby": "dropdownCustomLabel" }
+                attrs: { "aria-labelledby": "dropdownCustomLabel-" + _vm.index }
               },
               _vm._l(_vm.labels, function(label) {
                 return _c(
@@ -23990,7 +24117,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "post_info" }, [
+        _c("div", { staticClass: "post_info my-1" }, [
           _c("span", { staticClass: "text-muted" }, [
             _vm._v("luogo " + _vm._s(_vm._f("uppercase")(_vm.post.place)))
           ]),
@@ -24421,11 +24548,6 @@ var render = function() {
             "data-toggle": "dropdown",
             id: "dropdownOrderingMode",
             type: "button"
-          },
-          on: {
-            click: function($event) {
-              _vm.expandDropdown = !_vm.expandDropdown
-            }
           }
         },
         [_vm._v("\n\t\tOrdina per\n\t")]
@@ -24434,6 +24556,14 @@ var render = function() {
       _c(
         "div",
         {
+          directives: [
+            {
+              name: "on-clickaway",
+              rawName: "v-on-clickaway",
+              value: _vm.toggleDropdown,
+              expression: "toggleDropdown"
+            }
+          ],
           staticClass: "dropdown-menu",
           class: { show: _vm.expandDropdown },
           attrs: { "aria-labelledby": "dropdownOrderingMode" }
@@ -24797,11 +24927,6 @@ var render = function() {
             "data-toggle": "dropdown",
             id: "dropdownPostPerPage",
             type: "button"
-          },
-          on: {
-            click: function($event) {
-              _vm.expandDropdown = !_vm.expandDropdown
-            }
           }
         },
         [_vm._v("\n\t\tAnnunci per pagina\n\t")]
@@ -24810,6 +24935,14 @@ var render = function() {
       _c(
         "div",
         {
+          directives: [
+            {
+              name: "on-clickaway",
+              rawName: "v-on-clickaway",
+              value: _vm.toggleDropdown,
+              expression: "toggleDropdown"
+            }
+          ],
           staticClass: "dropdown-menu",
           class: { show: _vm.expandDropdown },
           attrs: { "aria-labelledby": "dropdownPostPerPage" }
@@ -25199,7 +25332,7 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "col-9" }, [
           _c("div", { staticClass: "d-flex justify-content-between mt-3" }, [
             _c(
               "div",
@@ -25284,8 +25417,8 @@ var render = function() {
           _c("div", { staticClass: "row" }, [
             _c(
               "div",
-              { staticClass: "col" },
-              _vm._l(_vm.jobPosts, function(jobPost) {
+              { staticClass: "col-12" },
+              _vm._l(_vm.jobPosts, function(jobPost, index) {
                 return _c(
                   "app-job-list-item",
                   {
@@ -25310,6 +25443,7 @@ var render = function() {
                     _c("app-custom-label-assign", {
                       attrs: {
                         slot: "labelBox",
+                        index: index,
                         "current-label":
                           jobPost.assigned_labels.length > 0
                             ? jobPost.assigned_labels[0]
@@ -45830,11 +45964,12 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
               case 32:
                 dispatch('saveSearchResponseData', res.data);
                 dispatch('showLoading', false);
-                _context2.next = 40;
+                window.scrollTo(0, 0);
+                _context2.next = 41;
                 break;
 
-              case 36:
-                _context2.prev = 36;
+              case 37:
+                _context2.prev = 37;
                 _context2.t1 = _context2["catch"](5);
                 dispatch('showLoading', false);
 
@@ -45845,12 +45980,12 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
                   dispatch('showError');
                 }
 
-              case 40:
+              case 41:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[5, 36]]);
+        }, _callee2, null, [[5, 37]]);
       }));
 
       function search(_x2) {

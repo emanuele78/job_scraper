@@ -8,12 +8,8 @@
 		</div>
 		<div class="container app_container" v-else>
 			<app-navbar/>
-			<router-view
-					class="position-relative">
-				<div class="">
-					<div class="work_in_progress" v-if="isLoading">
-					</div>
-				</div>
+			<router-view class="position-relative">
+				<div class="work_in_progress" v-if="isLoading"></div>
 			</router-view>
 			<div class="spinner_container" v-if="isLoading">
 				<button class="btn btn-primary loading_spinner" disabled type="button">
