@@ -7,7 +7,7 @@ Inoltre gli utenti registrati possono impostare delle ricerche attivando degli a
 
 Al momento lo scraper è attivo solo per la regione Marche.
 
-[![Generic badge](https://img.shields.io/badge/LIVEDEMO-HERE-<COLOR>.svg)](https://emanuelemazzante.dev/demo/mybnb/)
+[![Generic badge](https://img.shields.io/badge/LIVEDEMO-HERE-<COLOR>.svg)](https://emanuelemazzante.dev/demo/jobscraper/)
 
 ![screen](../master/art/screen_0.jpg)
 
