@@ -21,7 +21,7 @@
 						</div>
 						<div class="form-check">
 							<input :checked="agree_license" class="form-check-input" id="stayConnected" type="checkbox" v-model="agree_license">
-							<label class="form-check-label" for="stayConnected">Accetto l'accordo di licenza</label>
+							<label class="form-check-label" for="stayConnected">Dichiaro di aver letto la <router-link :to="{name: 'privacy'}">privacy policy</router-link></label>
 						</div>
 						<div class="row justify-content-center mt-2">
 							<button :disabled="!agree_license" @click.prevent="submit()" class="btn btn-primary" type="submit" v-if="!onGoing">Registrati</button>

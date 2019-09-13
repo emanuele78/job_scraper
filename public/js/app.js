@@ -26866,7 +26866,13 @@ var render = function() {
                   staticClass: "form-check-label",
                   attrs: { for: "stayConnected" }
                 },
-                [_vm._v("Accetto l'accordo di licenza")]
+                [
+                  _vm._v("Dichiaro di aver letto la "),
+                  _c("router-link", { attrs: { to: { name: "privacy" } } }, [
+                    _vm._v("privacy policy")
+                  ])
+                ],
+                1
               )
             ]),
             _vm._v(" "),
