@@ -7,6 +7,7 @@ import Login from './views/Login';
 import Signin from './views/Signin';
 import Dashboard from './views/Dashboard.vue';
 import SavedSearches from './views/SavedSearches';
+import Privacy from './views/Privacy';
 import store from './store';
 
 Vue.use(Router);
@@ -14,7 +15,6 @@ Vue.use(Router);
 const router = new Router({
     mode: 'history',
     base: process.env.NODE_ENV === 'production'? process.env.MIX_PRODUCTION_BASE_URL : process.env.MIX_DEVELOPMENT_BASE_URL,
-    // base: process.env.BASE_URL,
     routes: [
         {
             path: '/',
@@ -85,6 +85,11 @@ const router = new Router({
                     next({name: 'login'});
                 }
             }
+        },
+        {
+            path: '/privacy',
+            name: 'privacy',
+            component: Privacy
         }
     ]
 });

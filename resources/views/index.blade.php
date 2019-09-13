@@ -19,6 +19,12 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <link rel="stylesheet" href="{{asset('font/css/all.min.css')}}">
+
+        <script type="text/javascript">
+            var _iub = _iub || [];
+            _iub.csConfiguration = {"priorConsent":false,"lang":"it","siteId":1583375,"consentOnScroll":false,"cookiePolicyId":12084778, "banner":{ "position":"top" }};
+        </script>
+        <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
     </head>
     <body>
         <div id="app"></div>

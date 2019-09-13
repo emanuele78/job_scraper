@@ -1,7 +1,5 @@
 <?php
 	
-	use Illuminate\Http\Request;
-	
 	Route::middleware(['only_ajax'])->group(
 	  function () {
 		  
