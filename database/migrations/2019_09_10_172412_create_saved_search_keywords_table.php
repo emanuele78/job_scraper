@@ -4,7 +4,7 @@
 	use Illuminate\Database\Schema\Blueprint;
 	use Illuminate\Database\Migrations\Migration;
 	
-	class CreateSavedSearchesKeywordsTable extends Migration {
+	class CreateSavedSearchKeywordsTable extends Migration {
 		
 		/**
 		 * Run the migrations.
@@ -14,11 +14,11 @@
 		public function up() {
 			
 			Schema::create(
-			  'saved_searches_keywords', function (Blueprint $table) {
+			  'saved_search_keywords', function (Blueprint $table) {
 				
 				$table->bigIncrements('id');
-				$table->string('keyword', config('app.max_keyword_length'));
 				$table->unsignedBigInteger('saved_search_id');
+				$table->string('keyword', config('app.max_keyword_length'));
 				$table->foreign('saved_search_id')->references('id')->on('saved_searches')->onDelete('cascade');
 			});
 		}
@@ -30,6 +30,6 @@
 		 */
 		public function down() {
 			
-			Schema::dropIfExists('saved_searches_keywords');
+			Schema::dropIfExists('saved_search_keywords');
 		}
 	}

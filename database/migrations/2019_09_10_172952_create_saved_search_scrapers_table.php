@@ -4,7 +4,7 @@
 	use Illuminate\Database\Schema\Blueprint;
 	use Illuminate\Database\Migrations\Migration;
 	
-	class CreateSavedSearchesScrapersTable extends Migration {
+	class CreateSavedSearchScrapersTable extends Migration {
 		
 		/**
 		 * Run the migrations.
@@ -14,7 +14,7 @@
 		public function up() {
 			
 			Schema::create(
-			  'saved_searches_scrapers', function (Blueprint $table) {
+			  'saved_search_scrapers', function (Blueprint $table) {
 				
 				$table->bigIncrements('id');
 				$table->unsignedBigInteger('saved_search_id');
@@ -31,6 +31,6 @@
 		 */
 		public function down() {
 			
-			Schema::dropIfExists('saved_searches_scrapers');
+			Schema::dropIfExists('saved_search_scrapers');
 		}
 	}

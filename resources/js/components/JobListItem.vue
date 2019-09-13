@@ -97,7 +97,7 @@
         }
     }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
 	.post_wrapper {
 		display: flex;
 		flex-direction: row;

@@ -6,6 +6,7 @@ import Jobs from './views/Jobs.vue';
 import Login from './views/Login';
 import Signin from './views/Signin';
 import Dashboard from './views/Dashboard.vue';
+import SavedSearches from './views/SavedSearches';
 import store from './store';
 
 Vue.use(Router);
@@ -65,6 +66,18 @@ const router = new Router({
             path: '/dashboard',
             name: 'dashboard',
             component: Dashboard,
+            beforeEnter(to, from, next) {
+                if (store.getters.isAuth) {
+                    next();
+                } else {
+                    next({name: 'login'});
+                }
+            }
+        },
+        {
+            path: '/ricerche',
+            name: 'savedSearches',
+            component: SavedSearches,
             beforeEnter(to, from, next) {
                 if (store.getters.isAuth) {
                     next();

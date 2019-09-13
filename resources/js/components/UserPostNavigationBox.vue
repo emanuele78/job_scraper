@@ -1,20 +1,22 @@
 <template>
-	<div>
-		<h5>I tuoi annunci:</h5>
-		<ul class="custom_list">
-			<li :class="{'active_box': activeLabel == 'inbox'}" @click="switchToLabel('inbox')" class="d-flex justify-content-start align-items-center">
-				<span class="pr-2 text-muted">In arrivo</span>
-				<span class="badge badge-primary badge-pill" v-if="inboxCount>0">{{inboxCount}}</span>
-			</li>
-			<li :class="{'active_box': activeLabel == 'favorite'}" @click="switchToLabel('favorite')" class="d-flex justify-content-start align-items-center">
-				<span class="pr-2 text-muted">Preferiti</span>
-				<span class="badge badge-primary badge-pill" v-if="favoriteCount>0">{{favoriteCount}}</span>
-			</li>
-			<li :class="{'active_box': activeLabel == 'archive'}" @click="switchToLabel('archive')" class="d-flex justify-content-start align-items-center">
-				<span class="pr-2 text-muted">Archiviati</span>
-				<span class="badge badge-primary badge-pill" v-if="archiveCount>0">{{archiveCount}}</span>
-			</li>
-		</ul>
+	<div class="">
+		<div class="col-12">
+			<h5>I tuoi annunci:</h5>
+			<ul class="custom_list">
+				<li :class="{'active_box': activeLabel == 'inbox'}" @click="switchToLabel('inbox')" class="d-flex justify-content-start align-items-center">
+					<span class="pr-2 text-muted">In arrivo</span>
+					<span class="badge badge-primary badge-pill" v-if="inboxCount>0">{{inboxCount}}</span>
+				</li>
+				<li :class="{'active_box': activeLabel == 'favorite'}" @click="switchToLabel('favorite')" class="d-flex justify-content-start align-items-center">
+					<span class="pr-2 text-muted">Preferiti</span>
+					<span class="badge badge-primary badge-pill" v-if="favoriteCount>0">{{favoriteCount}}</span>
+				</li>
+				<li :class="{'active_box': activeLabel == 'archive'}" @click="switchToLabel('archive')" class="d-flex justify-content-start align-items-center">
+					<span class="pr-2 text-muted">Archiviati</span>
+					<span class="badge badge-primary badge-pill" v-if="archiveCount>0">{{archiveCount}}</span>
+				</li>
+			</ul>
+		</div>
 	</div>
 </template>
 <script>
@@ -50,6 +52,7 @@
 	.custom_list {
 		padding: 0;
 		list-style-type: none;
+		margin-bottom: 0;
 		
 		& > li {
 			margin-bottom: 5px;

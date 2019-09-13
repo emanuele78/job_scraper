@@ -1,16 +1,20 @@
 <template>
-	<form class="custom_label_creation">
-		<h5>Etichette personali:</h5>
-		<div class="" v-if="allowNewLabels">
-			<input :class="{not_allowed: wordExceeds || labelExists}" class="form-control" placeholder="etichetta" type="text" v-model.trim="userLabel">
-			<button @click.prevent="createNewCustomLabel()" class="btn btn-sm btn-primary mt-2" type="submit">Crea nuova</button>
+	<div class="">
+		<div class="col-12">
+			<form class="custom_label_creation">
+				<h5>Etichette personali:</h5>
+				<div class="" v-if="allowNewLabels">
+					<input :class="{not_allowed: wordExceeds || labelExists}" class="form-control" placeholder="etichetta" type="text" v-model.trim="userLabel">
+					<button @click.prevent="createNewCustomLabel()" class="btn btn-sm btn-primary mt-2" type="submit">Crea nuova</button>
+				</div>
+				<div :class="{current_label_bg: label.name === activeCustomLabel}" @click="switchToCustomLabel(label.name)" class="a_label mt-2" v-for="(label, index) in labels">
+					<div :class="'bg-'+label.color" @click.stop="deleteCustomLabel(label,index)" class="label_tag">x</div>
+					<span class="label_name text-muted pl-2 pr-2">{{label.name}}</span>
+					<span class="badge badge-primary badge-pill" v-if="label.postsCount>0">{{label.postsCount}}</span>
+				</div>
+			</form>
 		</div>
-		<div :class="{current_label_bg: label.name === activeCustomLabel}" @click="switchToCustomLabel(label.name)" class="a_label mt-2" v-for="(label, index) in labels">
-			<div :class="'bg-'+label.color" @click.stop="deleteCustomLabel(label,index)" class="label_tag">x</div>
-			<span class="label_name text-muted pl-2 pr-2">{{label.name}}</span>
-			<span class="badge badge-primary badge-pill" v-if="label.postsCount>0">{{label.postsCount}}</span>
-		</div>
-	</form>
+	</div>
 </template>
 <script>
     const maxLenght = 25;

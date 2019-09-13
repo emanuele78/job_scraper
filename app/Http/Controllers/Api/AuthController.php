@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Controllers\Api;
 	
+	use App\Events\UserCreated;
 	use App\Services\OauthClientService;
 	use App\User;
 	use Illuminate\Http\Request;
@@ -28,6 +29,7 @@
 				'email' => $data['email'],
 				'password' => Hash::make($data['password']),
 			  ]);
+			event(new UserCreated($user->email));
 			return response(['success' => true, 'email' => $user->email], 200);
 		}
 		

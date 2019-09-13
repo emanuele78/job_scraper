@@ -2,6 +2,8 @@
 	
 	namespace App\Console\Commands;
 	
+	use App\Services\NotificationErrorService;
+	use App\Services\NotificationMailService;
 	use Illuminate\Console\Command;
 	
 	class StartJavaScraper extends Command {
@@ -31,14 +33,18 @@
 		}
 		
 		/**
-		 * Execute the console command.
-		 *
-		 * @return mixed
+		 * @param NotificationErrorService $notificationErrorService
+		 * @param NotificationMailService $notificationMailService
 		 */
-		public function handle() {
+		public function handle(NotificationErrorService $notificationErrorService, NotificationMailService $notificationMailService) {
 			
 			$this->line('Starting the java scraper program');
 			exec('java -jar ' . config('app.java_scraper_path'));
 			$this->line('Scraping finished');
+			$this->line('Check for errors');
+			$notificationErrorService->notifyIfError();
+			$this->line('Notify user with saved searches');
+			$notificationMailService->startNotify();
+			$this->line('Finished');
 		}
 	}

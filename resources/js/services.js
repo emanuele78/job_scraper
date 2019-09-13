@@ -169,6 +169,34 @@ function searchPostsByLabel(checkedScrapers, orderMode, keywords, postsPerPage, 
     return axios.get('/auth/assignedlabels', request);
 }
 
+function savedSearchesList(token) {
+    const auth = {
+        headers: {'Authorization': "Bearer " + token}
+    };
+    return axios.get('/auth/savedsearches', auth);
+}
+
+function updateSavedSearchStatus(token, savedSearchId, isEnabled) {
+    const auth = {
+        headers: {'Authorization': "Bearer " + token}
+    };
+    return axios.patch(`/auth/savedsearches/${savedSearchId}`, {emailNotification: isEnabled ? 1 : 0}, auth);
+}
+
+function deleteSavedSearch(token, savedSearchId) {
+    const auth = {
+        headers: {'Authorization': "Bearer " + token}
+    };
+    return axios.delete(`/auth/savedsearches/${savedSearchId}`, auth);
+}
+
+function saveSearch(token, data) {
+    const auth = {
+        headers: {'Authorization': "Bearer " + token}
+    };
+    return axios.post('/auth/savedsearches', data, auth);
+}
+
 export default {
     getScrapers,
     searchJobPostsForGuest,
@@ -189,4 +217,8 @@ export default {
     removeLabelFromPost,
     destroyCustomLabel,
     searchPostsByLabel,
+    savedSearchesList,
+    updateSavedSearchStatus,
+    deleteSavedSearch,
+    saveSearch,
 }

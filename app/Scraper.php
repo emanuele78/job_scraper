@@ -8,7 +8,6 @@
 		
 		public $timestamps = false;
 		protected $guarded = ['id'];
-		protected $hidden = ['id'];
 		
 		public function jobPosts() {
 			

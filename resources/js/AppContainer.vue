@@ -6,11 +6,15 @@
 				Caricamento applicazione
 			</button>
 		</div>
+		
 		<div class="container app_container" v-else>
 			<app-navbar/>
-			<router-view class="position-relative">
-				<div class="work_in_progress" v-if="isLoading"></div>
+			
+			<router-view class="row position-relative">
+				<div class="work_in_progress" v-if="isLoading" slot="loading"></div>
 			</router-view>
+			
+			
 			<div class="spinner_container" v-if="isLoading">
 				<button class="btn btn-primary loading_spinner" disabled type="button">
 					<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>

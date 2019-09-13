@@ -121,6 +121,7 @@ const actions = {
             dispatch('resetStoreValues');
             await dispatch('search');
             await dispatch('retrieveAssignedLabels');
+            await dispatch('retrieveSavedSearches');
             router.replace({name: 'dashboard'});
         } catch (e) {
             //invalid credentials
@@ -147,6 +148,7 @@ const actions = {
         dispatch('resetCounters');
         dispatch('resetCustomLabels');
         dispatch('resetActiveLabel');
+        dispatch('resetSavedSearches');
     },
     saveAuthData({commit, dispatch, getters}, {expires_in, access_token, refresh_token}) {
         commit('accessToken', access_token);

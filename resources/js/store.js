@@ -12,6 +12,7 @@ import customLabels from "./modules/custom_labels";
 import {authSearch} from "./mixin/auth_search_action";
 import appContainer from "./modules/app_container";
 import router from "./router";
+import savedSearches from "./modules/saved_searches";
 
 Vue.use(Vuex);
 
@@ -100,6 +101,7 @@ export default new Vuex.Store({
             if (getters.isAuth) {
                 //logged in - get user custom labels
                 await dispatch('retrieveAssignedLabels');
+                await dispatch('retrieveSavedSearches');
                 router.replace({name: 'dashboard'});
             }
         },
@@ -280,6 +282,7 @@ export default new Vuex.Store({
         postsCount,
         customLabels,
         appContainer,
+        savedSearches,
     }
 });
 

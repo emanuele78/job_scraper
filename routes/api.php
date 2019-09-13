@@ -66,6 +66,18 @@
 		  
 		  //assigned label search
 		  Route::get('auth/assignedlabels', 'Api\Auth\AssignedLabelController@index')->middleware('search_validation');
+		
+		  //saved searches list
+		  Route::get('auth/savedsearches', 'Api\Auth\SavedSearchController@index');
+		  
+		  //saved search creation
+		  Route::post('auth/savedsearches', 'Api\Auth\SavedSearchController@store');
+		  
+		  //delete saved search
+		  Route::delete('auth/savedsearches/{savedSearch}', 'Api\Auth\SavedSearchController@destroy');
+		  
+		  //change saved search email notification status
+		  Route::patch('auth/savedsearches/{savedSearch}', 'Api\Auth\SavedSearchController@update');
 	  });
 	
 	

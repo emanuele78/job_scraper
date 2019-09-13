@@ -19,8 +19,9 @@
 				$table->bigIncrements('id');
 				$table->tinyInteger('notification_enabled')->default(1);
 				$table->unsignedBigInteger('user_id');
-				$table->bigInteger('last_job_post_id_notified')->default(-1);
+				$table->unsignedBigInteger('last_job_post_id_notified');
 				$table->foreign('user_id')->references('id')->on('users');
+				$table->foreign('last_job_post_id_notified')->references('id')->on('job_posts');
 				$table->timestamps();
 			});
 		}

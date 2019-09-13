@@ -36,34 +36,41 @@
 		return view('index');
 	});
 	
-	//test
 	Route::get(
-	  'test', function () {
+	  '/ricerche', function () {
 		
-		$userId = 1;
-		$labelName = 'casa';
-		return App\JobPost::whereHas(
-		  'assignedLabels', function ($query) use ($userId, $labelName) {
-			
-			$query->where('user_id', $userId)->where('name', $labelName);
-		})->count();
+		return view('index');
 	});
 	
+	//todo to be deleted
 	Route::get(
-	  'test2', function () {
+	  '/test', function () {
 		
 		$userId = 1;
 		
-		$customLabels = DB::table('assigned_labels')
-		  ->select('name', 'color')
+		$savedSearches = App\SavedSearch::with(['scrapers.scraper', 'keywords'])
 		  ->where('user_id', $userId)
-		  ->groupBy('name', 'color')->get();
-		foreach ($customLabels as $customLabel) {
-			$customLabel->postsCount = App\JobPost::whereHas(
-			  'assignedLabels', function ($query) use ($userId, $customLabel) {
-				
-				$query->where('user_id', $userId)->where('name', $customLabel->name);
-			})->count();
+		  ->get()->toArray();
+		$data = [];
+		foreach ($savedSearches as $savedSearch) {
+			$search = [
+			  'id' => $savedSearch['id'],
+			  'notification_enabled' => $savedSearch['notification_enabled'],
+			  'created_at' => $savedSearch['created_at'],
+			  'scrapers' => array_map(
+				function ($item) {
+					
+					return $item['scraper'];
+				}, $savedSearch['scrapers']),
+			  'keywords' => array_map(
+				function ($item) {
+					
+					return $item['keyword'];
+				}, $savedSearch['keywords']),
+			];
+			array_push($data, $search);
 		}
-		return $customLabels;
+		
+		return $data;
 	});
+	

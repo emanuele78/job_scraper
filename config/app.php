@@ -8,6 +8,8 @@
 	  'production_base_url' => env('PRODUCTION_BASE_URL'),
 	  'development_base_url' => env('DEVELOPMENT_BASE_URL'),
 	  'max_keyword_length' => env('MIX_MAX_KEYWORD_LENGTH'),
+	  'admin_mail_for_notification' => env('ADMIN_MAIL_FOR_NOTIFICATION'),
+	  'notify_user_creation' => env('NOTIFY_USER_CREATION'),
 		
 		/*
 		|--------------------------------------------------------------------------
