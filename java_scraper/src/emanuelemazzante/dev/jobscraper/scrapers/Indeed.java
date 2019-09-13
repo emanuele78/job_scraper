@@ -68,7 +68,6 @@ public class Indeed extends ScraperBase {
             br.close();
         } catch (Exception e) {
             ScraperReport report = new ScraperReport(region, sourceId, jobAdded, jobSkipped, true);
-            System.out.println(e);
             DbUtils.addReport(report);
             proceed = false;
         }
@@ -118,6 +117,7 @@ public class Indeed extends ScraperBase {
         con.setRequestProperty("Referer", "https://it.indeed.com/advanced_search?q=&l=" + region);
         //con.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
         con.setRequestProperty("Accept-Language", "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7");
+//        con.setInstanceFollowRedirects(true);
         con.setConnectTimeout(60000);
         con.connect();
         int responseCode = con.getResponseCode();

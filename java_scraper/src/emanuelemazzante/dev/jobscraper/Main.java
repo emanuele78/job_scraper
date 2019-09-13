@@ -18,12 +18,11 @@ import emanuelemazzante.dev.jobscraper.scrapers.Subito;
 import emanuelemazzante.dev.jobscraper.util.DbUtils;
 import emanuelemazzante.dev.jobscraper.model.ScraperObject;
 import emanuelemazzante.dev.jobscraper.scrapers.Linkedin;
-import emanuelemazzante.dev.jobscraper.util.Utils;
-import java.io.File;
 
 public class Main {
 
     private static final boolean USE_FIDDLER = false;
+    
 
     private static void setFiddler() {
         setTrustAllCerts();
@@ -34,10 +33,12 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        //getting region
-        String region = "marche";
-        if (args.length == 1) {
-            region = args[0];
+        //setting region
+        final String REGION = "marche";
+        //check for execute only
+        int executeOnly = -1; //execute all
+        if(args.length !=0){
+            executeOnly = Integer.parseInt(args[0]);
         }
         //check for fiddler logging
         if (USE_FIDDLER) {
@@ -45,16 +46,16 @@ public class Main {
         }
         //start
         if (DbUtils.startIfNotRunning()) {
-            startScraping(region);
+            startScraping(REGION, executeOnly);
             boolean isRunning = false;
             DbUtils.setStatus(isRunning);
         }
     }
 
-    private static void startScraping(String region) {
+    private static void startScraping(String region, int executeOnly) {
         ArrayList<ScraperObject> scrapers = DbUtils.readScrapersList();
         for (ScraperObject scraper : scrapers) {
-            if (scraper.isEnabled()) {
+            if (scraper.isEnabled() && (executeOnly == -1 || executeOnly == scraper.getId())) {
                 int scraperId = scraper.getId();
                 switch (scraper.getName()) {
                     case "indeed":
