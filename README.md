@@ -9,8 +9,7 @@ Al momento lo scraper è attivo solo per la regione Marche.
 
 [![Generic badge](https://img.shields.io/badge/LIVEDEMO-HERE-<COLOR>.svg)](https://emanuelemazzante.dev/demo/mybnb/)
 
-![screen](../master/art/screen_1.jpg)
-![screen](../master/art/screen_2.jpg)
+![screen](../master/art/screen_0.jpg)
 
 ## Autore
 
