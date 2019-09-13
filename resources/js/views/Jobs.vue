@@ -1,38 +1,43 @@
 <template>
 	<div class="">
 		<slot name="loading"/>
-		<div class="col-3 text-left mt-3">
+		<div class="col-sm-12 col-md-3 text-left mt-3">
 			<app-source-filter
 					:scrapers="scrapers"
 					@filterScrapers="filterScrapers($event)"
-					class="row mb-3"/>
+					class="row mb-4"/>
 			<app-keywords-box
 					:keywords="keywords"
 					@addKeyword="addKeyword($event)"
 					@removeKeyword="removeKeyword($event)"
 					class="row"/>
 		</div>
-		<div class="col-9">
-			<div class="row">
+		
+		<div class="col-sm-12 col-md-9">
+			
+			<div class="row mt-3">
+				
+				<div class="col-12 col-sm-6">
+					<app-info-panel :jobs-count="jobsCount"/>
+				</div>
+				<div class="col-12 col-sm-6 ordering_counting">
+					<app-posts-to-show-panel
+							:current-value="currentPostsPerPage"
+							:posts-per-page="postsPerPage"
+							@changePostsPerPage="setPostsPerPage($event)"
+							class="d-inline"/>
+					<app-ordering-panel
+							:current-order="currentSortType"
+							:sort-types="sortTypes"
+							@changeOrder="setOrderMode($event)"
+							class="d-inline"/>
+				
+				</div>
 				<div class="col-12">
-					<div class="d-flex justify-content-between mt-3">
-						<app-info-panel :jobs-count="jobsCount"/>
-						<div class="">
-							<app-posts-to-show-panel
-									:current-value="currentPostsPerPage"
-									:posts-per-page="postsPerPage"
-									@changePostsPerPage="setPostsPerPage($event)"
-									class="d-inline"/>
-							<app-ordering-panel
-									:current-order="currentSortType"
-									:sort-types="sortTypes"
-									@changeOrder="setOrderMode($event)"
-									class="d-inline"/>
-						</div>
-					</div>
 					<hr>
 				</div>
 			</div>
+			
 			<div class="row">
 				<div class="col-12">
 					<app-job-list-item
@@ -97,5 +102,11 @@
 <style lang="scss">
 	input[type="checkbox"]:disabled + label {
 		text-decoration: line-through;
+	}
+	
+	@media screen and (min-width: 576px) {
+		.ordering_counting {
+			text-align: right;
+		}
 	}
 </style>

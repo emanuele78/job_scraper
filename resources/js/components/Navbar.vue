@@ -10,10 +10,10 @@
 						<span class="ml-1">Job Scraper</span>
 					</a>
 				</router-link>
-				<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+				<button @click="showNavbarContent=!showNavbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler collapsed" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<div class="collapse navbar-collapse" :class="{show: showNavbarContent}" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto ml-2">
 						<router-link :to="{name:'jobs'}" active-class="item_active" class="nav-item active" exact tag="li" v-if="!isAuth">
 							<a class="nav-link">Annunci</a>
@@ -28,7 +28,7 @@
 							<a class="nav-link">Ricerche salvate</a>
 						</router-link>
 					</ul>
-					<ul class="navbar-nav align-content-end">
+					<ul class="navbar-nav align-content-end ml-2">
 						<router-link :to="{name:'login'}" active-class="item_active" class="nav-item active" exact tag="li" v-if="!isAuth">
 							<a class="nav-link">Accedi</a>
 						</router-link>
@@ -49,11 +49,19 @@
     import {mapActions} from 'vuex';
 
     export default {
+        data() {
+            return {
+                showNavbarContent: false,
+						}
+        },
         computed: {
             ...mapGetters(['isAuth']),
         },
         methods: {
             ...mapActions(['logout']),
+            expandNavbar() {
+
+            }
         }
     }
 </script>

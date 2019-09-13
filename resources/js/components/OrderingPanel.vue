@@ -1,5 +1,5 @@
 <template>
-	<div :class="{show: expandDropdown}" class="dropdown dropleft">
+	<div :class="{show: expandDropdown, dropleft: openLeft}" class="dropdown">
 		<button aria-haspopup="true" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" id="dropdownOrderingMode" type="button">
 			Ordina per
 		</button>
@@ -12,6 +12,8 @@
 </template>
 <script>
     import {mixin as clickaway} from 'vue-clickaway';
+    import dropdownOpenMode
+        from '../mixin/dropdown_open_mode';
 
     export default {
         props: {
@@ -37,12 +39,12 @@
             toggleDropdown(event) {
                 if (event.srcElement.id === 'dropdownOrderingMode') {
                     this.expandDropdown = !this.expandDropdown;
-                }else{
+                } else {
                     this.expandDropdown = false;
                 }
             }
         },
-        mixins: [clickaway],
+        mixins: [clickaway, dropdownOpenMode],
     }
 </script>
 <style>

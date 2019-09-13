@@ -2,19 +2,31 @@
 	<nav aria-label="pagination" v-if="usePagination">
 		<ul class="pagination justify-content-center">
 			<li :class="{disabled: currentPage==1}" class="page-item">
-				<a @click.prevent="moveTo(1)" class="page-link" href="#">Prima</a>
+				<a @click.prevent="moveTo(1)" class="page-link" href="#">
+					<i class="fas fa-fast-backward" v-if="showIcon()"></i>
+					<span v-else>Prima</span>
+				</a>
 			</li>
 			<li :class="{disabled: currentPage==1}" class="page-item">
-				<a @click.prevent="moveTo(currentPage-1)" class="page-link" href="#">Precedente</a>
+				<a @click.prevent="moveTo(currentPage-1)" class="page-link" href="#">
+					<i class="fas fa-step-backward" v-if="showIcon()"></i>
+					<span v-else>Precedente</span>
+				</a>
 			</li>
 			<li :class="{active: page==currentPage}" class="page-item" v-for="page in pagination">
 				<a @click.prevent="moveTo(page)" class="page-link" href="#">{{page}}</a>
 			</li>
 			<li :class="{disabled: currentPage==lastPage}" class="page-item">
-				<a @click.prevent="moveTo(currentPage+1)" class="page-link" href="#">Successiva</a>
+				<a @click.prevent="moveTo(currentPage+1)" class="page-link" href="#">
+					<i class="fas fa-step-forward" v-if="showIcon()"></i>
+					<span v-else>Successiva</span>
+				</a>
 			</li>
 			<li :class="{disabled: currentPage==lastPage}" class="page-item">
-				<a @click.prevent="moveTo(lastPage)" class="page-link" href="#">Ultima</a>
+				<a @click.prevent="moveTo(lastPage)" class="page-link" href="#">
+					<i class="fas fa-fast-forward" v-if="showIcon()"></i>
+					<span v-else>Ultima</span>
+				</a>
 			</li>
 		</ul>
 	</nav>
@@ -78,6 +90,10 @@
                 if (page !== this.currentPage) {
                     this.$emit('moveTo', page);
                 }
+            },
+            showIcon() {
+                const breakpoint = 576;
+                return Math.max(document.documentElement.clientWidth, window.innerWidth || 0) < breakpoint;
             }
         }
     }

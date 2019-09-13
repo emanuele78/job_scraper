@@ -1,7 +1,7 @@
 <template>
 	<div class="">
 		<slot name="loading"/>
-		<div class="col-3 text-left mt-3">
+		<div class="col-sm-12 col-md-3 text-left mt-3">
 			<app-user-post-navigation-box
 					:active-label="activeLabel"
 					:archive-count="archivedCount"
@@ -33,9 +33,13 @@
 					class="row"
 			/>
 		</div>
-		<div class="col-9">
-			<div class="d-flex justify-content-between mt-3">
-				<div class="">
+		
+		
+		<div class="col-sm-12 col-md-9">
+			
+			<div class="row mt-3">
+				
+				<div class="col-12 col-sm-6">
 					<app-post-marking-tool-box
 							:all-checked="allChecked"
 							:show-archive-icon="activeLabel=='inbox'"
@@ -50,7 +54,7 @@
 							@updatePostsStatus="updatePostsStatus({moveToArchive: $event, postsIds: currentSelection})"/>
 					<app-info-panel :jobs-count="jobsCount"/>
 				</div>
-				<div class="">
+				<div class="col-12 col-sm-6 ordering_counting">
 					<app-posts-to-show-panel
 							:current-value="currentPostsPerPage"
 							:posts-per-page="postsPerPage"
@@ -62,8 +66,12 @@
 							@changeOrder="setOrderMode($event)"
 							class="d-inline"/>
 				</div>
+				
+				<div class="col-12">
+					<hr>
+				</div>
 			</div>
-			<hr>
+			
 			<div class="row">
 				<div class="col-12">
 					<app-job-list-item
@@ -179,5 +187,11 @@
 <style lang="scss">
 	input[type="checkbox"]:disabled + label {
 		text-decoration: line-through;
+	}
+	
+	@media screen and (min-width: 576px) {
+		.ordering_counting {
+			text-align: right;
+		}
 	}
 </style>
