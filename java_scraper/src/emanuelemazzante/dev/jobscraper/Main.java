@@ -22,6 +22,8 @@ import emanuelemazzante.dev.jobscraper.scrapers.Linkedin;
 public class Main {
 
     private static final boolean USE_FIDDLER = false;
+    private static final int SCRAPE_ALL = -1;
+    //private static final int SCRAPE_ONLY_THIS = 1;
     
 
     private static void setFiddler() {
@@ -32,11 +34,11 @@ public class Main {
         System.setProperty("https.proxyPort", "8888");
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {        
         //setting region
         final String REGION = "marche";
         //check for execute only
-        int executeOnly = -1; //execute all
+        int executeOnly = SCRAPE_ALL;
         if(args.length !=0){
             executeOnly = Integer.parseInt(args[0]);
         }

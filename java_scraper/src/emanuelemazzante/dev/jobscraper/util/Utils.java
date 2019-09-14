@@ -14,7 +14,7 @@ import java.net.URISyntaxException;
  * @author emanuelemazzante
  */
 public class Utils {
-    
+
     public static String getExecutablePath() {
         try {
             String path = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();

@@ -117,7 +117,6 @@ public class Indeed extends ScraperBase {
         con.setRequestProperty("Referer", "https://it.indeed.com/advanced_search?q=&l=" + region);
         //con.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
         con.setRequestProperty("Accept-Language", "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7");
-//        con.setInstanceFollowRedirects(true);
         con.setConnectTimeout(60000);
         con.connect();
         int responseCode = con.getResponseCode();
@@ -131,8 +130,42 @@ public class Indeed extends ScraperBase {
         return doc;
     }
 
+    private Document getPostContent(String url) throws Exception {
+        URL obj = new URL(url);
+        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("Host", "it.indeed.com");
+        con.setRequestProperty("Connection", "keep-alive");
+        con.setRequestProperty("Cache-Control", "max-age=0");
+        con.setRequestProperty("Upgrade-Insecure-Requests", "1");
+        con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36");
+        con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3");
+        con.setRequestProperty("Referer", "https://it.indeed.com/advanced_search?q=&l=" + region);
+        //con.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
+        con.setRequestProperty("Accept-Language", "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7");
+        con.setConnectTimeout(60000);
+        con.connect();
+        int responseCode = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        Document doc = Jsoup.parse(response.toString());
+        if (responseCode == 302) {
+            String redirectLink = doc.selectFirst("a").attr("href");
+            if (redirectLink.startsWith("http:")) {
+                redirectLink = redirectLink.replace("http:", "https:");                           
+            }
+            return getPostContent(redirectLink);            
+        } else {
+            return doc;
+        }
+    }
+
     private String loadContent(String url) throws Exception {
-        Document doc = getDocument(url);
+        Document doc = getPostContent(url);
         return doc.getElementById("jobDescriptionText").text();
     }
 
