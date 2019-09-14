@@ -2,6 +2,7 @@
 	
 	namespace App;
 	
+	use App\Events\UserCreated;
 	use Illuminate\Notifications\Notifiable;
 	use Illuminate\Contracts\Auth\MustVerifyEmail;
 	use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,6 +11,11 @@
 	class User extends Authenticatable {
 		
 		use HasApiTokens, Notifiable;
+		
+		protected $dispatchesEvents = [
+		  'created' => UserCreated::class,
+		];
+		
 		
 		/**
 		 * The attributes that are mass assignable.

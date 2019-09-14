@@ -2,6 +2,7 @@
 	
 	namespace App\Events;
 	
+	use App\User;
 	use Illuminate\Broadcasting\Channel;
 	use Illuminate\Queue\SerializesModels;
 	use Illuminate\Broadcasting\PrivateChannel;
@@ -14,16 +15,16 @@
 		
 		use Dispatchable, InteractsWithSockets, SerializesModels;
 		
-		private $userEmail;
+		private $user;
 		
 		/**
 		 * UserCreated constructor.
 		 *
-		 * @param $email
+		 * @param User $user
 		 */
-		public function __construct($email) {
+		public function __construct(User $user) {
 			
-			$this->userEmail = $email;
+			$this->user = $user;
 		}
 		
 		/**
@@ -36,8 +37,8 @@
 			return new PrivateChannel('channel-name');
 		}
 		
-		public function getUserEmail() {
+		public function getUserEmail(){
 			
-			return $this->userEmail;
+			return $this->user->email;
 		}
 	}
