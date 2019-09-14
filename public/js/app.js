@@ -25880,7 +25880,7 @@ var render = function() {
       "div",
       { staticClass: "offset-1 col-10 text-left mt-5" },
       [
-        _c("h3", [_vm._v("Benvenuto in JobSraper!")]),
+        _c("h3", [_vm._v("Benvenuto in Job Scraper!")]),
         _vm._v(" "),
         _vm._m(0),
         _vm._v(" "),
@@ -25917,16 +25917,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", [
+    return _c("p", { staticClass: "mt-4" }, [
+      _c("strong", [_vm._v("Job Scraper")]),
       _vm._v(
-        "JobScraper è un aggregatore di annunci di lavoro presenti in altri portali. Gli annunci vengono prelevati più volte al giorno tramite uno\n\t\t\t"
+        " è un aggregatore di annunci di lavoro presenti in altri portali. Gli annunci vengono prelevati più volte al giorno tramite uno\n\t\t\t"
       ),
       _c(
         "a",
         { attrs: { href: "https://it.wikipedia.org/wiki/Web_scraping" } },
         [_vm._v("scraper")]
       ),
-      _vm._v(" programmato in Java.")
+      _vm._v(" programmato in Java.\n\t\t")
     ])
   },
   function() {
@@ -25934,9 +25935,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", [
-      _vm._v("Al momento lo scraper è attivo solo per la regione "),
+      _vm._v("Al momento lo scraper è attivo solo per la regione\n\t\t\t"),
       _c("strong", [_vm._v("Marche")]),
-      _vm._v(".")
+      _vm._v(".\n\t\t")
     ])
   },
   function() {
@@ -25951,7 +25952,7 @@ var staticRenderFns = [
         _vm._v("portfolio")
       ]),
       _vm._v(
-        " e non fornisce alcuna garanzia del servizio reso. Tutti i marchi riportati appartengono ai legittimi proprietari."
+        " e non fornisce alcuna garanzia del servizio reso. Tutti i marchi riportati appartengono ai legittimi proprietari.\n\t\t"
       )
     ])
   },
@@ -25966,7 +25967,7 @@ var staticRenderFns = [
         { attrs: { href: "https://github.com/emanuele78/job_scraper" } },
         [_vm._v("GitHub")]
       ),
-      _vm._v(".")
+      _vm._v(".\n\t\t")
     ])
   }
 ]
