@@ -26668,7 +26668,7 @@ var render = function() {
               _c("td", [_vm._v(_vm._s(stat.jobs_skipped))]),
               _vm._v(" "),
               _c("td", [
-                _vm._v(_vm._s(_vm._f("localize")(stat.last_activity)))
+                _vm._v(_vm._s(_vm._f("localize_from_utc")(stat.last_activity)))
               ]),
               _vm._v(" "),
               _c(
@@ -43152,6 +43152,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+moment__WEBPACK_IMPORTED_MODULE_4___default.a.locale('it');
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('capitalize', function (value) {
   if (!value) return '';
   value = value.toString();
@@ -43167,6 +43168,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('localize', function (value) {
   if (!value) return '(ND)';
   var date = moment__WEBPACK_IMPORTED_MODULE_4___default()(value, "YYYY-MM-DD HH:mm:ss");
   return date.format("DD/MM/YYYY HH:mm");
+});
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('localize_from_utc', function (value) {
+  if (!value) return '(ND)';
+  var date = moment__WEBPACK_IMPORTED_MODULE_4___default.a.utc(value, "YYYY-MM-DD HH:mm:ss");
+  return moment__WEBPACK_IMPORTED_MODULE_4___default()(date).local().format('DD/MM/YYYY HH:mm');
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],

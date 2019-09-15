@@ -31,6 +31,8 @@ import moment from 'moment';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+moment.locale('it');
+
 Vue.filter('capitalize', value => {
     if (!value) return '';
     value = value.toString();
@@ -48,6 +50,12 @@ Vue.filter('localize', value => {
     if (!value) return '(ND)';
     let date = moment(value, "YYYY-MM-DD HH:mm:ss");
     return date.format("DD/MM/YYYY HH:mm");
+});
+
+Vue.filter('localize_from_utc', value => {
+    if (!value) return '(ND)';
+    let date = moment.utc(value, "YYYY-MM-DD HH:mm:ss");
+    return moment(date).local().format('DD/MM/YYYY HH:mm');
 });
 
 const app = new Vue({

@@ -28,7 +28,7 @@
 					<td>{{stat.region | capitalize}}</td>
 					<td>{{stat.jobs_added}}</td>
 					<td>{{stat.jobs_skipped}}</td>
-					<td>{{stat.last_activity | localize}}</td>
+					<td>{{stat.last_activity | localize_from_utc}}</td>
 					<td :class="{'text-success':!stat.errors, 'text-danger':stat.errors}">{{stat.errors ? 'Si' : 'No'}}</td>
 				</tr>
 				</tbody>
