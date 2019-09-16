@@ -44,6 +44,19 @@ function refreshToken(refreshToken) {
     return axios.post('/refresh_token', data);
 }
 
+function requestPasswordReset(email) {
+    const request = {
+        params: {
+            email,
+        }
+    };
+    return axios.get('/password_reset', request);
+}
+
+function saveNewPassword(password, password_confirmation, requestToken) {
+    return axios.post('/password_reset', {password, password_confirmation, requestToken});
+}
+
 //AUTH SERVICES
 function doLogout(token) {
     const auth = {
@@ -221,4 +234,6 @@ export default {
     updateSavedSearchStatus,
     deleteSavedSearch,
     saveSearch,
+    requestPasswordReset,
+    saveNewPassword,
 }

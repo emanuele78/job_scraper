@@ -12,6 +12,9 @@
 			
 			$coll = Report::with('scraper')->orderBy('source_id')->orderBy('region')->get();
 			$status = DB::table('scraper_status')->first()->is_running;
+			foreach ($coll as $item){
+			
+			}
 			return response(['stats' => $coll, 'status' => $status], 200);
 			
 		}

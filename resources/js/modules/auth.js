@@ -1,6 +1,8 @@
 import services from '../services';
 import router from "../router";
 import moment from 'moment';
+import {isEmailValid} from "./password_email_validation";
+import {isPasswordValid} from "./password_email_validation";
 
 const state = {
     //registration
@@ -119,10 +121,11 @@ const actions = {
             //logged in
             dispatch('resetEmail');
             dispatch('resetStoreValues');
+            commit('loginOnGoing', false);
+            router.replace({name: 'dashboard'});
             await dispatch('search');
             await dispatch('retrieveAssignedLabels');
             await dispatch('retrieveSavedSearches');
-            router.replace({name: 'dashboard'});
         } catch (e) {
             //invalid credentials
             commit('loginOnGoing', false);
@@ -185,6 +188,9 @@ const actions = {
             dispatch('handleAuthError');
         }
     },
+    requestPasswordReset({}, email) {
+        services.requestPasswordReset(email);
+    },
     setTimeoutForTokenRefresh({commit, dispatch, state}, timeInSeconds) {
         commit('setTimeoutRefresherId', setTimeout(() => {
             dispatch('doRefreshToken');
@@ -241,23 +247,6 @@ const getters = {
         return state.stayConnected;
     }
 };
-
-function isEmailValid(email) {
-    if (email == null) {
-        return false;
-    }
-    let reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return reg.test(String(email).toLowerCase());
-}
-
-function isPasswordValid(password) {
-    if (password == null) {
-        return false;
-    }
-    password = password.trim();
-    //here can be added more rules
-    return password.length >= 6;
-}
 
 export default {
     state,

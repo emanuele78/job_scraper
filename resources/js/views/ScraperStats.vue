@@ -15,9 +15,9 @@
 					<th scope="col">Scraper</th>
 					<th scope="col">Stato</th>
 					<th scope="col">Regione</th>
+					<th scope="col">Ultima attività</th>
 					<th scope="col">Annunci aggiunti</th>
 					<th scope="col">Annunci saltati</th>
-					<th scope="col">Ultima attività</th>
 					<th scope="col">Errori</th>
 				</tr>
 				</thead>
@@ -26,9 +26,9 @@
 					<th scope="row">{{stat.scraper.showed_name | capitalize}}</th>
 					<td :class="{'text-success': stat.scraper.enabled, 'text-danger': !stat.scraper.enabled,}">{{stat.scraper.enabled ? 'Abilitato' : 'Disabilitato'}}</td>
 					<td>{{stat.region | capitalize}}</td>
+					<td>{{stat.last_activity | localize_from_utc}}</td>
 					<td>{{stat.jobs_added}}</td>
 					<td>{{stat.jobs_skipped}}</td>
-					<td>{{stat.last_activity | localize_from_utc}}</td>
 					<td :class="{'text-success':!stat.errors, 'text-danger':stat.errors}">{{stat.errors ? 'Si' : 'No'}}</td>
 				</tr>
 				</tbody>

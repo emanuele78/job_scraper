@@ -20,6 +20,12 @@
 		  
 		  //token refresh
 		  Route::post('refresh_token', 'Api\AuthController@refreshToken');
+		  
+		  //request password reset
+		  Route::get('password_reset', 'Api\AuthController@passwordResetRequest');
+		  
+		  //store new password
+		  Route::post('password_reset', 'Api\AuthController@saveNewPassword');
 	  });
 	
 	//auth routes

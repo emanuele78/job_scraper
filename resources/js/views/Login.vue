@@ -21,6 +21,9 @@
 							<input :checked="stayConnected" class="form-check-input" id="stayConnected" type="checkbox" v-model="stayConnected">
 							<label class="form-check-label" for="stayConnected">Rimani connesso</label>
 						</div>
+						<div class="text-right mb-4">
+							<router-link :to="{name: 'passwordReset'}">Password dimenticata</router-link>
+						</div>
 						<div class="row justify-content-center mt-2">
 							<button @click.prevent="submit()" class="btn btn-primary" type="submit" v-if="!onGoing">Accedi</button>
 							<button class="btn btn-primary" disabled type="button" v-else>

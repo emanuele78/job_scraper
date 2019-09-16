@@ -17,11 +17,13 @@
 						<div class="form-group">
 							<label for="inputPassword">Password</label>
 							<input class="form-control" id="inputPassword" placeholder="Password" required type="password" v-model:value="password">
-							<div class="text-danger text-right" v-if="passwordError">La password deve avere almeno 6 caratteri</div>
+							<div class="text-danger text-right" v-if="passwordError">{{passwordDescrition}}</div>
 						</div>
 						<div class="form-check">
 							<input :checked="agree_license" class="form-check-input" id="stayConnected" type="checkbox" v-model="agree_license">
-							<label class="form-check-label" for="stayConnected">Dichiaro di aver letto la <router-link :to="{name: 'privacy'}">privacy policy</router-link></label>
+							<label class="form-check-label" for="stayConnected">Dichiaro di aver letto la
+								<router-link :to="{name: 'privacy'}">privacy policy</router-link>
+							</label>
 						</div>
 						<div class="row justify-content-center mt-2">
 							<button :disabled="!agree_license" @click.prevent="submit()" class="btn btn-primary" type="submit" v-if="!onGoing">Registrati</button>
@@ -37,6 +39,8 @@
 	</div>
 </template>
 <script>
+    import {passwordRuleDescription} from "../modules/password_email_validation";
+
     export default {
         data() {
             return {
@@ -54,7 +58,10 @@
             },
             passwordError() {
                 return this.$store.getters.signinPasswordError;
-            }
+            },
+						passwordDescrition(){
+                return passwordRuleDescription();
+						}
         },
         methods: {
             submit() {

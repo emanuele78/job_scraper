@@ -1,7 +1,5 @@
 <?php
 	
-	Auth::routes();
-	
 	Route::get(
 	  '/', function () {
 		
@@ -46,6 +44,18 @@
 	
 	Route::get(
 	  '/privacy', function () {
+		
+		return view('index');
+	});
+	
+	Route::get(
+	  '/password/reset', function () {
+		
+		return view('index');
+	});
+	
+	Route::get(
+	  '/password/nuova', function () {
 		
 		return view('index');
 	});

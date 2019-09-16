@@ -62,6 +62,7 @@
 		*/
 	  
 	  'url' => env('APP_URL', 'http://localhost'),
+	  'debug_url' => env('APP_URL_DEBUG' ),
 	  
 	  'asset_url' => env('ASSET_URL', null),
 		

@@ -9,12 +9,14 @@ import Dashboard from './views/Dashboard.vue';
 import SavedSearches from './views/SavedSearches';
 import Privacy from './views/Privacy';
 import store from './store';
+import PasswordReset from './views/PasswordReset';
+import NewPassword from './views/NewPassword';
 
 Vue.use(Router);
 
 const router = new Router({
     mode: 'history',
-    base: process.env.NODE_ENV === 'production'? process.env.MIX_PRODUCTION_BASE_URL : process.env.MIX_DEVELOPMENT_BASE_URL,
+    base: process.env.NODE_ENV === 'production' ? process.env.MIX_PRODUCTION_BASE_URL : process.env.MIX_DEVELOPMENT_BASE_URL,
     routes: [
         {
             path: '/',
@@ -90,6 +92,16 @@ const router = new Router({
             path: '/privacy',
             name: 'privacy',
             component: Privacy
+        },
+        {
+            path: '/password/reset',
+            name: 'passwordReset',
+            component: PasswordReset,
+        },
+        {
+            path: '/password/nuova',
+            name: 'newPassword',
+            component: NewPassword
         }
     ]
 });
