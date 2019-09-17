@@ -152,11 +152,15 @@ function assignLabelToPost(token, data) {
     return axios.post('/auth/assignedlabels', data, auth);
 }
 
-function removeLabelFromPost(token, postId) {
-    const auth = {
-        headers: {'Authorization': "Bearer " + token}
+function removeLabelFromPost(token, postId, labelName) {
+    const request = {
+        headers: {'Authorization': "Bearer " + token},
+        data: {
+            labelName,
+            postId,
+        }
     };
-    return axios.delete(`/auth/assignedlabels/${postId}`, auth);
+    return axios.delete('/auth/assignedlabels', request);
 }
 
 function destroyCustomLabel(token, labelName) {

@@ -28,14 +28,23 @@ const actions = {
     },
     async assignCustomLabelToPost({state, getters, dispatch}, data) {
         //find post and assign label to it
-        //posts can only have 1 label at time so no need to check if other label is present
         dispatch('showLoading', true);
-        const post = getters.jobPosts.find(item => item.id === data.postId);
+        const post = getters.jobPosts[data.postIndex];
+        //check if label is not already assigned to current post
+        if (post.assigned_labels.findIndex(label => {
+            return label.name === data.label.name;
+        }) !== -1) {
+            //label already assigned to current post
+            dispatch('showLoading', false);
+            dispatch('showError');
+            return;
+        }
+        //assign label to post
         post.assigned_labels.push(data.label);
         //add label to post in DB
         const labelName = data.label.name;
         const labelColor = data.label.color;
-        const postId = post.id;
+        const postId = data.postId;
         try {
             //assign custom label to post on server
             await services.assignLabelToPost(getters.accessToken, {labelName, labelColor, postId});
@@ -56,12 +65,12 @@ const actions = {
     async removeCustomLabelFromPost({state, getters, dispatch}, data) {
         dispatch('showLoading', true);
         //find post
-        const post = getters.jobPosts.find(item => item.id === data.postId);
+        const post = getters.jobPosts[data.postIndex];
         //remove label from post
-        post.assigned_labels = [];
+        post.assigned_labels.splice(post.assigned_labels.findIndex(label => label.name === data.labelName), 1);
         try {
             //remove label from post in DB
-            await services.removeLabelFromPost(getters.accessToken, post.id);
+            await services.removeLabelFromPost(getters.accessToken, data.postId, data.labelName);
             //decrement value of custom labels count
             const customLabel = state.assignedLabels.find(label => label.name === data.labelName);
             customLabel.postsCount--;

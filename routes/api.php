@@ -63,7 +63,7 @@
 		  Route::post('auth/assignedlabels', 'Api\Auth\AssignedLabelController@store');
 		  
 		  //remove custom label to post
-		  Route::delete('auth/assignedlabels/{id}', 'Api\Auth\AssignedLabelController@destroy');
+		  Route::delete('auth/assignedlabels', 'Api\Auth\AssignedLabelController@destroy');
 		  
 		  //destroy custom label
 		  Route::patch('auth/assignedlabels', 'Api\Auth\AssignedLabelController@update');

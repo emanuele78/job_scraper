@@ -1,19 +1,15 @@
 <template>
 	<div class="labels_assignment">
-		<div class="label_wrapper" v-if="currentLabel">
-			<span :class="'bg-'+currentLabel.color" class="custom_label"><span @click="removeCustomLabelFromPost(currentLabel.name)" class="custom_label_delete pl-1 pr-2">x</span>{{currentLabel.name}}</span>
-		</div>
-		<div :class="{show: expandDropdown}" class="dropdown" v-else>
-			<button :id="'dropdownCustomLabel-'+index" aria-haspopup="true" class="btn btn-outline-dark btn-sm dropdown-toggle" data-toggle="dropdown" type="button">
-				{{textToShow}}
-			</button>
-			<div :aria-labelledby="'dropdownCustomLabel-'+index" :class="{show: expandDropdown}" class="dropdown-menu" v-on-clickaway="showList">
-				<button @click="assignCustomLabelToPost(label)" class="dropdown-item label_element" type="button" v-for="label in labels">
+		<div :class="{show: expandDropdown}" class="dropdown labels_dropdown">
+			<button :id="'dropdownCustomLabel-'+jobPostIndex" aria-haspopup="true" class="btn btn-outline-dark btn-sm dropdown-toggle" data-toggle="dropdown" type="button">Assegna etichetta</button>
+			<div :aria-labelledby="'dropdownCustomLabel-'+jobPostIndex" :class="{show: expandDropdown}" class="dropdown-menu" v-on-clickaway="showList">
+				<button @click="assignCustomLabelToPost(label)" class="dropdown-item label_element" type="button" v-for="label in notAssignedLabels">
 					<span :class="'bg-'+label.color" class="label_tag"></span>
 					<span class="pl-2">{{label.name}}</span>
 				</button>
 			</div>
 		</div>
+		<span :class="'bg-'+assignedLabel.color" class="custom_label ml-2" v-for="assignedLabel in assignedLabels"><span @click="removeCustomLabelFromPost(assignedLabel.name)" class="custom_label_delete pl-1 pr-2">x</span>{{assignedLabel.name}}</span>
 	</div>
 </template>
 <script>
@@ -25,11 +21,11 @@
                 type: Array,
                 default: null
             },
-            currentLabel: {
-                type: Object,
-                default: null
+            assignedLabels: {
+                type: Array,
+                required: true,
             },
-            index: {
+            jobPostIndex: {
                 type: Number,
                 required: true,
             }
@@ -40,21 +36,28 @@
             }
         },
         computed: {
-            textToShow() {
-                return this.currentLabel ? this.currentLabel.name : 'Assegna etichetta'
-            },
+            notAssignedLabels() {
+                const freeLabels = [];
+                this.labels.forEach(label => {
+                    //find label in assigned labels array
+                    const index = this.assignedLabels.findIndex(assignedLabel => {
+                        return assignedLabel.name === label.name;
+                    });
+                    if (index === -1) {
+                        freeLabels.push(label);
+                    }
+                });
+                return freeLabels;
+            }
         },
         methods: {
             assignCustomLabelToPost(label) {
-                if (!this.currentLabel || (this.currentLabel.name != label.name)) {
-                    this.expandDropdown = false;
-                    this.$emit('assignCustomLabelToPost', label);
-                }
+                this.expandDropdown = false;
+                this.$emit('assignCustomLabelToPost', label);
             },
             showList(event) {
                 if (this.labels.length) {
-                    // this.expandDropdown = !this.expandDropdown;
-                    if (event.srcElement.id === 'dropdownCustomLabel-' + this.index) {
+                    if (event.srcElement.id === 'dropdownCustomLabel-' + this.jobPostIndex) {
                         this.expandDropdown = !this.expandDropdown;
                     } else {
                         this.expandDropdown = false;
@@ -70,24 +73,26 @@
 </script>
 <style lang="scss">
 	.labels_assignment {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		
 		#dropdownCustomLabel {
 			font-size: 10px;
 		}
 		
-		.label_wrapper {
-			.custom_label {
-				display: inline-block;
-				padding: 2px 6px 2px 4px;
-				font-size: 12px;
-				border-radius: 5px 15px 15px 5px;
-				color: white;
-			}
-			
-			.custom_label_delete {
-				font-weight: 700;
-				color: black;
-				cursor: pointer;
-			}
+		.custom_label {
+			padding: 2px 6px 2px 4px;
+			font-size: 12px;
+			border-radius: 5px 15px 15px 5px;
+			color: white;
+		}
+		
+		.custom_label_delete {
+			font-weight: 700;
+			color: black;
+			cursor: pointer;
 		}
 		
 		.label_element {

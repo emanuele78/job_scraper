@@ -1997,10 +1997,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2008,11 +2004,11 @@ __webpack_require__.r(__webpack_exports__);
       type: Array,
       "default": null
     },
-    currentLabel: {
-      type: Object,
-      "default": null
+    assignedLabels: {
+      type: Array,
+      required: true
     },
-    index: {
+    jobPostIndex: {
       type: Number,
       required: true
     }
@@ -2023,21 +2019,31 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
-    textToShow: function textToShow() {
-      return this.currentLabel ? this.currentLabel.name : 'Assegna etichetta';
+    notAssignedLabels: function notAssignedLabels() {
+      var _this = this;
+
+      var freeLabels = [];
+      this.labels.forEach(function (label) {
+        //find label in assigned labels array
+        var index = _this.assignedLabels.findIndex(function (assignedLabel) {
+          return assignedLabel.name === label.name;
+        });
+
+        if (index === -1) {
+          freeLabels.push(label);
+        }
+      });
+      return freeLabels;
     }
   },
   methods: {
     assignCustomLabelToPost: function assignCustomLabelToPost(label) {
-      if (!this.currentLabel || this.currentLabel.name != label.name) {
-        this.expandDropdown = false;
-        this.$emit('assignCustomLabelToPost', label);
-      }
+      this.expandDropdown = false;
+      this.$emit('assignCustomLabelToPost', label);
     },
     showList: function showList(event) {
       if (this.labels.length) {
-        // this.expandDropdown = !this.expandDropdown;
-        if (event.srcElement.id === 'dropdownCustomLabel-' + this.index) {
+        if (event.srcElement.id === 'dropdownCustomLabel-' + this.jobPostIndex) {
           this.expandDropdown = !this.expandDropdown;
         } else {
           this.expandDropdown = false;
@@ -3830,7 +3836,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".labels_assignment #dropdownCustomLabel {\n  font-size: 10px;\n}\n.labels_assignment .label_wrapper .custom_label {\n  display: inline-block;\n  padding: 2px 6px 2px 4px;\n  font-size: 12px;\n  border-radius: 5px 15px 15px 5px;\n  color: white;\n}\n.labels_assignment .label_wrapper .custom_label_delete {\n  font-weight: 700;\n  color: black;\n  cursor: pointer;\n}\n.labels_assignment .label_element {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  font-size: 12px;\n}\n.labels_assignment .label_element .label_tag {\n  display: inline-block;\n  height: 20px;\n  width: 25px;\n  border-radius: 5px 15px 15px 5px;\n  line-height: 20px;\n  font-weight: 700;\n  text-align: center;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".labels_assignment {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n}\n.labels_assignment #dropdownCustomLabel {\n  font-size: 10px;\n}\n.labels_assignment .custom_label {\n  padding: 2px 6px 2px 4px;\n  font-size: 12px;\n  border-radius: 5px 15px 15px 5px;\n  color: white;\n}\n.labels_assignment .custom_label_delete {\n  font-weight: 700;\n  color: black;\n  cursor: pointer;\n}\n.labels_assignment .label_element {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  font-size: 12px;\n}\n.labels_assignment .label_element .label_tag {\n  display: inline-block;\n  height: 20px;\n  width: 25px;\n  border-radius: 5px 15px 15px 5px;\n  line-height: 20px;\n  font-weight: 700;\n  text-align: center;\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -24254,96 +24260,104 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "labels_assignment" }, [
-    _vm.currentLabel
-      ? _c("div", { staticClass: "label_wrapper" }, [
+  return _c(
+    "div",
+    { staticClass: "labels_assignment" },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "dropdown labels_dropdown",
+          class: { show: _vm.expandDropdown }
+        },
+        [
           _c(
-            "span",
+            "button",
             {
-              staticClass: "custom_label",
-              class: "bg-" + _vm.currentLabel.color
+              staticClass: "btn btn-outline-dark btn-sm dropdown-toggle",
+              attrs: {
+                id: "dropdownCustomLabel-" + _vm.jobPostIndex,
+                "aria-haspopup": "true",
+                "data-toggle": "dropdown",
+                type: "button"
+              }
             },
-            [
-              _c(
-                "span",
+            [_vm._v("Assegna etichetta")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
                 {
-                  staticClass: "custom_label_delete pl-1 pr-2",
+                  name: "on-clickaway",
+                  rawName: "v-on-clickaway",
+                  value: _vm.showList,
+                  expression: "showList"
+                }
+              ],
+              staticClass: "dropdown-menu",
+              class: { show: _vm.expandDropdown },
+              attrs: {
+                "aria-labelledby": "dropdownCustomLabel-" + _vm.jobPostIndex
+              }
+            },
+            _vm._l(_vm.notAssignedLabels, function(label) {
+              return _c(
+                "button",
+                {
+                  staticClass: "dropdown-item label_element",
+                  attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      return _vm.removeCustomLabelFromPost(
-                        _vm.currentLabel.name
-                      )
+                      return _vm.assignCustomLabelToPost(label)
                     }
                   }
                 },
-                [_vm._v("x")]
-              ),
-              _vm._v(_vm._s(_vm.currentLabel.name))
-            ]
+                [
+                  _c("span", {
+                    staticClass: "label_tag",
+                    class: "bg-" + label.color
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "pl-2" }, [
+                    _vm._v(_vm._s(label.name))
+                  ])
+                ]
+              )
+            }),
+            0
           )
-        ])
-      : _c(
-          "div",
-          { staticClass: "dropdown", class: { show: _vm.expandDropdown } },
+        ]
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.assignedLabels, function(assignedLabel) {
+        return _c(
+          "span",
+          {
+            staticClass: "custom_label ml-2",
+            class: "bg-" + assignedLabel.color
+          },
           [
             _c(
-              "button",
+              "span",
               {
-                staticClass: "btn btn-outline-dark btn-sm dropdown-toggle",
-                attrs: {
-                  id: "dropdownCustomLabel-" + _vm.index,
-                  "aria-haspopup": "true",
-                  "data-toggle": "dropdown",
-                  type: "button"
+                staticClass: "custom_label_delete pl-1 pr-2",
+                on: {
+                  click: function($event) {
+                    return _vm.removeCustomLabelFromPost(assignedLabel.name)
+                  }
                 }
               },
-              [_vm._v("\n\t\t\t" + _vm._s(_vm.textToShow) + "\n\t\t")]
+              [_vm._v("x")]
             ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "on-clickaway",
-                    rawName: "v-on-clickaway",
-                    value: _vm.showList,
-                    expression: "showList"
-                  }
-                ],
-                staticClass: "dropdown-menu",
-                class: { show: _vm.expandDropdown },
-                attrs: { "aria-labelledby": "dropdownCustomLabel-" + _vm.index }
-              },
-              _vm._l(_vm.labels, function(label) {
-                return _c(
-                  "button",
-                  {
-                    staticClass: "dropdown-item label_element",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.assignCustomLabelToPost(label)
-                      }
-                    }
-                  },
-                  [
-                    _c("span", {
-                      staticClass: "label_tag",
-                      class: "bg-" + label.color
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "pl-2" }, [
-                      _vm._v(_vm._s(label.name))
-                    ])
-                  ]
-                )
-              }),
-              0
-            )
+            _vm._v(_vm._s(assignedLabel.name))
           ]
         )
-  ])
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -25985,24 +25999,23 @@ var render = function() {
                   _c("app-custom-label-assign", {
                     attrs: {
                       slot: "labelBox",
-                      "current-label":
-                        jobPost.assigned_labels.length > 0
-                          ? jobPost.assigned_labels[0]
-                          : null,
-                      index: index,
+                      "assigned-labels": jobPost.assigned_labels,
+                      "job-post-index": index,
                       labels: _vm.assignedLabels
                     },
                     on: {
                       assignCustomLabelToPost: function($event) {
                         return _vm.assignCustomLabelToPost({
                           label: $event,
-                          postId: jobPost.id
+                          postId: jobPost.id,
+                          postIndex: index
                         })
                       },
                       removeCustomLabelFromPost: function($event) {
                         return _vm.removeCustomLabelFromPost({
                           labelName: $event,
-                          postId: jobPost.id
+                          postId: jobPost.id,
+                          postIndex: index
                         })
                       }
                     },
@@ -45608,37 +45621,49 @@ var actions = {
             case 0:
               state = _ref3.state, getters = _ref3.getters, dispatch = _ref3.dispatch;
               //find post and assign label to it
-              //posts can only have 1 label at time so no need to check if other label is present
               dispatch('showLoading', true);
-              post = getters.jobPosts.find(function (item) {
-                return item.id === data.postId;
-              });
+              post = getters.jobPosts[data.postIndex]; //check if label is not already assigned to current post
+
+              if (!(post.assigned_labels.findIndex(function (label) {
+                return label.name === data.label.name;
+              }) !== -1)) {
+                _context.next = 7;
+                break;
+              }
+
+              //label already assigned to current post
+              dispatch('showLoading', false);
+              dispatch('showError');
+              return _context.abrupt("return");
+
+            case 7:
+              //assign label to post
               post.assigned_labels.push(data.label); //add label to post in DB
 
               labelName = data.label.name;
               labelColor = data.label.color;
-              postId = post.id;
-              _context.prev = 7;
-              _context.next = 10;
+              postId = data.postId;
+              _context.prev = 11;
+              _context.next = 14;
               return _services__WEBPACK_IMPORTED_MODULE_1__["default"].assignLabelToPost(getters.accessToken, {
                 labelName: labelName,
                 labelColor: labelColor,
                 postId: postId
               });
 
-            case 10:
+            case 14:
               //find out label in labels list and increment value of count
               customLabel = state.assignedLabels.find(function (label) {
                 return label.name === data.label.name;
               });
               customLabel.postsCount++;
               dispatch('showLoading', false);
-              _context.next = 19;
+              _context.next = 23;
               break;
 
-            case 15:
-              _context.prev = 15;
-              _context.t0 = _context["catch"](7);
+            case 19:
+              _context.prev = 19;
+              _context.t0 = _context["catch"](11);
               dispatch('showLoading', false);
 
               if (_context.t0.response.status === 401) {
@@ -45648,12 +45673,12 @@ var actions = {
                 dispatch('showError');
               }
 
-            case 19:
+            case 23:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[7, 15]]);
+      }, _callee, null, [[11, 19]]);
     }));
 
     function assignCustomLabelToPost(_x, _x2) {
@@ -45674,14 +45699,14 @@ var actions = {
               state = _ref4.state, getters = _ref4.getters, dispatch = _ref4.dispatch;
               dispatch('showLoading', true); //find post
 
-              post = getters.jobPosts.find(function (item) {
-                return item.id === data.postId;
-              }); //remove label from post
+              post = getters.jobPosts[data.postIndex]; //remove label from post
 
-              post.assigned_labels = [];
+              post.assigned_labels.splice(post.assigned_labels.findIndex(function (label) {
+                return label.name === data.labelName;
+              }), 1);
               _context2.prev = 4;
               _context2.next = 7;
-              return _services__WEBPACK_IMPORTED_MODULE_1__["default"].removeLabelFromPost(getters.accessToken, post.id);
+              return _services__WEBPACK_IMPORTED_MODULE_1__["default"].removeLabelFromPost(getters.accessToken, data.postId, data.labelName);
 
             case 7:
               //decrement value of custom labels count
@@ -47143,13 +47168,17 @@ function assignLabelToPost(token, data) {
   return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/auth/assignedlabels', data, auth);
 }
 
-function removeLabelFromPost(token, postId) {
-  var auth = {
+function removeLabelFromPost(token, postId, labelName) {
+  var request = {
     headers: {
       'Authorization': "Bearer " + token
+    },
+    data: {
+      labelName: labelName,
+      postId: postId
     }
   };
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/auth/assignedlabels/".concat(postId), auth);
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/auth/assignedlabels', request);
 }
 
 function destroyCustomLabel(token, labelName) {

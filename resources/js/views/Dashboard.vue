@@ -85,11 +85,11 @@
 							@updatePostsStatus="updatePostsStatus($event)"
 							v-for="(jobPost, index) in jobPosts">
 						<app-custom-label-assign
-								:current-label="jobPost.assigned_labels.length>0?jobPost.assigned_labels[0]:null"
-								:index="index"
+								:assigned-labels="jobPost.assigned_labels"
+								:job-post-index="index"
 								:labels="assignedLabels"
-								@assignCustomLabelToPost="assignCustomLabelToPost({label: $event, postId: jobPost.id})"
-								@removeCustomLabelFromPost="removeCustomLabelFromPost({labelName: $event, postId: jobPost.id})"
+								@assignCustomLabelToPost="assignCustomLabelToPost({label: $event, postId: jobPost.id, postIndex: index})"
+								@removeCustomLabelFromPost="removeCustomLabelFromPost({labelName: $event, postId: jobPost.id, postIndex: index})"
 								slot="labelBox"/>
 						<app-post-selection-box
 								:id="jobPost.id"
