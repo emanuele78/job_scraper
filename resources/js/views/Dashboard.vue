@@ -18,6 +18,7 @@
 					class="row mb-5"/>
 			<app-source-filter
 					:scrapers="scrapers"
+					@checkAllScrapers="checkAllScrapers($event)"
 					@filterScrapers="filterScrapers($event)"
 					class="row mb-5"/>
 			<app-keywords-box
@@ -33,7 +34,6 @@
 					class="row"
 			/>
 		</div>
-		
 		
 		<div class="col-sm-12 col-md-9">
 			
@@ -161,7 +161,7 @@
             }
         },
         methods: {
-            ...mapActions(['selectAllPosts', 'addSingleSelection', 'createNewCustomLabel', 'deleteCustomLabel', 'switchToCustomLabel', 'assignCustomLabelToPost', 'removeCustomLabelFromPost', 'switchToLabel', 'filterScrapers', 'addKeyword', 'removeKeyword', 'changeShowOnly', 'setOrderMode', 'setPostsPerPage', 'updatePostsFavoriteStatus', 'updatePostsReadStatus', 'updatePostsStatus', 'search', 'saveSearch']),
+            ...mapActions(['selectAllPosts', 'addSingleSelection', 'createNewCustomLabel', 'deleteCustomLabel', 'switchToCustomLabel', 'assignCustomLabelToPost', 'removeCustomLabelFromPost', 'switchToLabel', 'filterScrapers', 'addKeyword', 'removeKeyword', 'changeShowOnly', 'setOrderMode', 'setPostsPerPage', 'updatePostsFavoriteStatus', 'updatePostsReadStatus', 'updatePostsStatus', 'search', 'saveSearch', 'checkAllScrapers']),
             checkPostAsSelected(postId) {
                 return this.currentSelection.find(item => item === postId) != null;
             },

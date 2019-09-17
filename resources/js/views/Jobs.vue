@@ -4,6 +4,7 @@
 		<div class="col-sm-12 col-md-3 text-left mt-3">
 			<app-source-filter
 					:scrapers="scrapers"
+					@checkAllScrapers="checkAllScrapers($event)"
 					@filterScrapers="filterScrapers($event)"
 					class="row mb-5"/>
 			<app-keywords-box
@@ -86,7 +87,7 @@
             ...mapGetters(['scrapers', 'jobPosts', 'jobsCount', 'currentPage', 'lastPage', 'sortTypes', 'currentSortType', 'isAuth', 'postsPerPage', 'currentPostsPerPage', 'keywords']),
         },
         methods: {
-            ...mapActions(['search', 'filterScrapers', 'addKeyword', 'removeKeyword', 'setOrderMode', 'setPostsPerPage',]),
+            ...mapActions(['search', 'filterScrapers', 'addKeyword', 'removeKeyword', 'setOrderMode', 'setPostsPerPage', 'checkAllScrapers',]),
         },
         components: {
             appSourceFilter,

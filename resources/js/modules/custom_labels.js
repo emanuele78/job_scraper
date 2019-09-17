@@ -138,7 +138,7 @@ const actions = {
         const checkedScrapers = getters.scrapers.filter(item => item.checked).map(item => item.name);
         if (checkedScrapers.length === 0) {
             //no need to perform server request
-            return null;
+            return {data: null};
         }
         const orderMode = getters.currentSortType;
         const keywords = getters.keywords;

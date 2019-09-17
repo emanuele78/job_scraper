@@ -2866,6 +2866,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     scrapers: {
@@ -2880,6 +2884,9 @@ __webpack_require__.r(__webpack_exports__);
         checked: event.srcElement.checked
       };
       this.$emit('filterScrapers', payload);
+    },
+    checkAll: function checkAll(_checkAll) {
+      this.$emit('checkAllScrapers', _checkAll);
     }
   }
 });
@@ -3123,7 +3130,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return !this.searchExists;
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_13__["mapActions"])(['selectAllPosts', 'addSingleSelection', 'createNewCustomLabel', 'deleteCustomLabel', 'switchToCustomLabel', 'assignCustomLabelToPost', 'removeCustomLabelFromPost', 'switchToLabel', 'filterScrapers', 'addKeyword', 'removeKeyword', 'changeShowOnly', 'setOrderMode', 'setPostsPerPage', 'updatePostsFavoriteStatus', 'updatePostsReadStatus', 'updatePostsStatus', 'search', 'saveSearch']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_13__["mapActions"])(['selectAllPosts', 'addSingleSelection', 'createNewCustomLabel', 'deleteCustomLabel', 'switchToCustomLabel', 'assignCustomLabelToPost', 'removeCustomLabelFromPost', 'switchToLabel', 'filterScrapers', 'addKeyword', 'removeKeyword', 'changeShowOnly', 'setOrderMode', 'setPostsPerPage', 'updatePostsFavoriteStatus', 'updatePostsReadStatus', 'updatePostsStatus', 'search', 'saveSearch', 'checkAllScrapers']), {
     checkPostAsSelected: function checkPostAsSelected(postId) {
       return this.currentSelection.find(function (item) {
         return item === postId;
@@ -3237,6 +3244,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -3248,7 +3256,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])(['scrapers', 'jobPosts', 'jobsCount', 'currentPage', 'lastPage', 'sortTypes', 'currentSortType', 'isAuth', 'postsPerPage', 'currentPostsPerPage', 'keywords'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])(['search', 'filterScrapers', 'addKeyword', 'removeKeyword', 'setOrderMode', 'setPostsPerPage'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])(['search', 'filterScrapers', 'addKeyword', 'removeKeyword', 'setOrderMode', 'setPostsPerPage', 'checkAllScrapers'])),
   components: {
     appSourceFilter: _components_SourceFilter_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     appInfoPanel: _components_InfoPanel_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -25641,7 +25649,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [
+  return _c("div", { staticClass: "sources" }, [
     _c(
       "div",
       { staticClass: "col-12" },
@@ -25673,7 +25681,37 @@ var render = function() {
               ]
             )
           ])
-        })
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "action_buttons mt-2" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-primary",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.checkAll(true)
+                }
+              }
+            },
+            [_vm._v("Tutti")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-primary",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.checkAll(false)
+                }
+              }
+            },
+            [_vm._v("Nessuno")]
+          )
+        ])
       ],
       2
     )
@@ -25851,6 +25889,9 @@ var render = function() {
             staticClass: "row mb-5",
             attrs: { scrapers: _vm.scrapers },
             on: {
+              checkAllScrapers: function($event) {
+                return _vm.checkAllScrapers($event)
+              },
               filterScrapers: function($event) {
                 return _vm.filterScrapers($event)
               }
@@ -26240,6 +26281,9 @@ var render = function() {
             staticClass: "row mb-5",
             attrs: { scrapers: _vm.scrapers },
             on: {
+              checkAllScrapers: function($event) {
+                return _vm.checkAllScrapers($event)
+              },
               filterScrapers: function($event) {
                 return _vm.filterScrapers($event)
               }
@@ -44967,7 +45011,9 @@ function () {
               break;
             }
 
-            return _context.abrupt("return", null);
+            return _context.abrupt("return", {
+              data: null
+            });
 
           case 4:
             orderMode = getters.currentSortType;
@@ -45880,7 +45926,9 @@ var actions = {
                 break;
               }
 
-              return _context5.abrupt("return", null);
+              return _context5.abrupt("return", {
+                data: null
+              });
 
             case 4:
               orderMode = getters.currentSortType;
@@ -47376,6 +47424,11 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
       });
       scraper.checked = filteredScraper.checked;
     },
+    checkAllScrapers: function checkAllScrapers(state, checkAll) {
+      state.scrapers.forEach(function (scraper) {
+        return scraper.checked = checkAll;
+      });
+    },
     setJobCount: function setJobCount(state, count) {
       state.jobsCount = count;
     },
@@ -47491,15 +47544,21 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
       commit('filterScrapers', filteredScraper);
       dispatch('search');
     },
-    changeShowOnly: function changeShowOnly(_ref5, value) {
+    checkAllScrapers: function checkAllScrapers(_ref5, checkAll) {
       var commit = _ref5.commit,
           dispatch = _ref5.dispatch;
+      commit('checkAllScrapers', checkAll);
+      dispatch('search');
+    },
+    changeShowOnly: function changeShowOnly(_ref6, value) {
+      var commit = _ref6.commit,
+          dispatch = _ref6.dispatch;
       commit('showOnly', value);
       dispatch('search');
     },
-    saveSearchResponseData: function saveSearchResponseData(_ref6, data) {
-      var commit = _ref6.commit,
-          dispatch = _ref6.dispatch;
+    saveSearchResponseData: function saveSearchResponseData(_ref7, data) {
+      var commit = _ref7.commit,
+          dispatch = _ref7.dispatch;
 
       if (data != null) {
         commit('setJobCount', data.job_posts.total);
@@ -47517,9 +47576,9 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
         commit('setCurrentPage', 1);
       }
     },
-    selectAllPosts: function selectAllPosts(_ref7, selectAll) {
-      var commit = _ref7.commit,
-          getters = _ref7.getters;
+    selectAllPosts: function selectAllPosts(_ref8, selectAll) {
+      var commit = _ref8.commit,
+          getters = _ref8.getters;
       commit('allChecked', selectAll);
 
       if (selectAll) {
@@ -47530,8 +47589,8 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
         commit('currentSelection', []);
       }
     },
-    addSingleSelection: function addSingleSelection(_ref8, data) {
-      var state = _ref8.state;
+    addSingleSelection: function addSingleSelection(_ref9, data) {
+      var state = _ref9.state;
 
       if (data.isSelected) {
         //add in array
@@ -47545,7 +47604,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
     search: function () {
       var _search = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref9) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref10) {
         var dispatch,
             getters,
             commit,
@@ -47556,7 +47615,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                dispatch = _ref9.dispatch, getters = _ref9.getters, commit = _ref9.commit;
+                dispatch = _ref10.dispatch, getters = _ref10.getters, commit = _ref10.commit;
                 page = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : 1;
                 commit('currentSelection', []);
                 commit('allChecked', false);
@@ -47564,7 +47623,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
                 _context2.prev = 5;
 
                 if (getters.isAuth) {
-                  _context2.next = 13;
+                  _context2.next = 12;
                   break;
                 }
 
@@ -47573,65 +47632,64 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
 
               case 9:
                 res = _context2.sent;
-                dispatch('saveSearchResponseData', res.data);
-                _context2.next = 32;
+                _context2.next = 31;
                 break;
 
-              case 13:
+              case 12:
                 _context2.t0 = getters.activeLabel;
-                _context2.next = _context2.t0 === 'inbox' ? 16 : _context2.t0 === 'favorite' ? 20 : _context2.t0 === 'archive' ? 24 : 28;
+                _context2.next = _context2.t0 === 'inbox' ? 15 : _context2.t0 === 'favorite' ? 19 : _context2.t0 === 'archive' ? 23 : 27;
                 break;
 
-              case 16:
-                _context2.next = 18;
+              case 15:
+                _context2.next = 17;
                 return dispatch('authSearch', {
                   page: page,
                   searchType: 'searchInboxPosts'
                 });
 
-              case 18:
+              case 17:
                 res = _context2.sent;
-                return _context2.abrupt("break", 32);
+                return _context2.abrupt("break", 31);
 
-              case 20:
-                _context2.next = 22;
+              case 19:
+                _context2.next = 21;
                 return dispatch('authSearch', {
                   page: page,
                   searchType: 'searchFavoritePosts'
                 });
 
-              case 22:
+              case 21:
                 res = _context2.sent;
-                return _context2.abrupt("break", 32);
+                return _context2.abrupt("break", 31);
 
-              case 24:
-                _context2.next = 26;
+              case 23:
+                _context2.next = 25;
                 return dispatch('authSearch', {
                   page: page,
                   searchType: 'searchArchivedPosts'
                 });
 
-              case 26:
+              case 25:
                 res = _context2.sent;
-                return _context2.abrupt("break", 32);
+                return _context2.abrupt("break", 31);
 
-              case 28:
-                _context2.next = 30;
+              case 27:
+                _context2.next = 29;
                 return dispatch('customLabelSearch', page);
 
-              case 30:
+              case 29:
                 res = _context2.sent;
-                return _context2.abrupt("break", 32);
+                return _context2.abrupt("break", 31);
 
-              case 32:
+              case 31:
                 dispatch('saveSearchResponseData', res.data);
                 dispatch('showLoading', false);
                 window.scrollTo(0, 0);
-                _context2.next = 41;
+                _context2.next = 40;
                 break;
 
-              case 37:
-                _context2.prev = 37;
+              case 36:
+                _context2.prev = 36;
                 _context2.t1 = _context2["catch"](5);
                 dispatch('showLoading', false);
 
@@ -47642,12 +47700,12 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
                   dispatch('showError');
                 }
 
-              case 41:
+              case 40:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[5, 37]]);
+        }, _callee2, null, [[5, 36]]);
       }));
 
       function search(_x2) {
@@ -47659,13 +47717,13 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
     guestSearch: function () {
       var _guestSearch = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref10, page) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref11, page) {
         var dispatch, commit, getters, checkedScrapers, orderMode, keywords, postsPerPage;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                dispatch = _ref10.dispatch, commit = _ref10.commit, getters = _ref10.getters;
+                dispatch = _ref11.dispatch, commit = _ref11.commit, getters = _ref11.getters;
                 checkedScrapers = getters.scrapers.filter(function (item) {
                   return item.checked;
                 }).map(function (item) {
@@ -47677,7 +47735,9 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
                   break;
                 }
 
-                return _context3.abrupt("return", null);
+                return _context3.abrupt("return", {
+                  data: null
+                });
 
               case 4:
                 orderMode = getters.currentSortType;
@@ -47703,10 +47763,10 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
 
       return guestSearch;
     }(),
-    addKeyword: function addKeyword(_ref11, keyword) {
-      var dispatch = _ref11.dispatch,
-          commit = _ref11.commit,
-          getters = _ref11.getters;
+    addKeyword: function addKeyword(_ref12, keyword) {
+      var dispatch = _ref12.dispatch,
+          commit = _ref12.commit,
+          getters = _ref12.getters;
       var index = getters.keywords.indexOf(keyword); //check if already exists
 
       if (index === -1) {
@@ -47714,17 +47774,17 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
         dispatch('search');
       }
     },
-    removeKeyword: function removeKeyword(_ref12, index) {
-      var dispatch = _ref12.dispatch,
-          commit = _ref12.commit;
+    removeKeyword: function removeKeyword(_ref13, index) {
+      var dispatch = _ref13.dispatch,
+          commit = _ref13.commit;
       commit("removeKeyword", index);
       dispatch('search');
     },
-    resetStoreValues: function resetStoreValues(_ref13) {
-      var commit = _ref13.commit,
-          getters = _ref13.getters,
-          dispatch = _ref13.dispatch,
-          state = _ref13.state;
+    resetStoreValues: function resetStoreValues(_ref14) {
+      var commit = _ref14.commit,
+          getters = _ref14.getters,
+          dispatch = _ref14.dispatch,
+          state = _ref14.state;
       commit('setKeywords', []);
       dispatch('saveSearchResponseData', null);
       commit('currentSelection', []);

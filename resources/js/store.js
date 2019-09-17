@@ -51,6 +51,9 @@ export default new Vuex.Store({
             const scraper = state.scrapers.find(item => item.name == filteredScraper.name);
             scraper.checked = filteredScraper.checked;
         },
+        checkAllScrapers(state, checkAll) {
+            state.scrapers.forEach(scraper => scraper.checked = checkAll);
+        },
         setJobCount(state, count) {
             state.jobsCount = count;
         },
@@ -117,6 +120,10 @@ export default new Vuex.Store({
             commit('filterScrapers', filteredScraper);
             dispatch('search');
         },
+        checkAllScrapers({commit, dispatch}, checkAll) {
+            commit('checkAllScrapers', checkAll);
+            dispatch('search');
+        },
         changeShowOnly({commit, dispatch}, value) {
             commit('showOnly', value);
             dispatch('search');
@@ -163,7 +170,6 @@ export default new Vuex.Store({
                 let res;
                 if (!getters.isAuth) {
                     res = await dispatch('guestSearch', page);
-                    dispatch('saveSearchResponseData', res.data);
                 } else {
                     switch (getters.activeLabel) {
                         case 'inbox':
@@ -183,7 +189,7 @@ export default new Vuex.Store({
                 }
                 dispatch('saveSearchResponseData', res.data);
                 dispatch('showLoading', false);
-                window.scrollTo(0,0);
+                window.scrollTo(0, 0);
             } catch (e) {
                 dispatch('showLoading', false);
                 if (e.response.status === 401) {
@@ -198,7 +204,7 @@ export default new Vuex.Store({
             const checkedScrapers = getters.scrapers.filter(item => item.checked).map(item => item.name);
             if (checkedScrapers.length === 0) {
                 //no need to perform server request
-                return null;
+                return {data: null};
             }
             const orderMode = getters.currentSortType;
             const keywords = getters.keywords;

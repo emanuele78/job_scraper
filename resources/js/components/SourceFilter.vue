@@ -1,5 +1,5 @@
 <template>
-	<div class="">
+	<div class="sources">
 		<div class="col-12">
 			<h5>Fonti:</h5>
 			<div class="form-check" v-for="scraper in scrapers">
@@ -11,6 +11,10 @@
 				<label :for="scraper.name" class="form-check-label">
 					{{scraper.showed_name | capitalize}}
 				</label>
+			</div>
+			<div class="action_buttons mt-2">
+				<button @click="checkAll(true)" class="btn btn-sm btn-primary" type="button">Tutti</button>
+				<button @click="checkAll(false)" class="btn btn-sm btn-primary" type="button">Nessuno</button>
 			</div>
 		</div>
 	</div>
@@ -31,6 +35,9 @@
                     checked: event.srcElement.checked
                 };
                 this.$emit('filterScrapers', payload);
+            },
+            checkAll(checkAll) {
+                this.$emit('checkAllScrapers', checkAll);
             }
         }
     }
