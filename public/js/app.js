@@ -25349,6 +25349,7 @@ var render = function() {
           _vm.showArchiveIcon
             ? _c("i", {
                 staticClass: "fas fa-archive",
+                attrs: { title: "Archivia gli annunci selezionati" },
                 on: {
                   click: function($event) {
                     return _vm.updatePostsStatus(true)
@@ -25360,6 +25361,7 @@ var render = function() {
           _vm.showInBoxIcon
             ? _c("i", {
                 staticClass: "fas fa-inbox",
+                attrs: { title: "Sposta in arrivo gli annunci selezionati" },
                 on: {
                   click: function($event) {
                     return _vm.updatePostsStatus(false)
@@ -25371,6 +25373,7 @@ var render = function() {
           _vm.showMarkAsReadIcon
             ? _c("i", {
                 staticClass: "fas fa-envelope-open",
+                attrs: { title: "Segna come letti gli annunci selezionati" },
                 on: {
                   click: function($event) {
                     return _vm.updatePostsReadStatus(true)
@@ -25382,6 +25385,9 @@ var render = function() {
           _vm.showMarkAsUnreadIcon
             ? _c("i", {
                 staticClass: "fas fa-envelope",
+                attrs: {
+                  title: "Segna come non letti gli annunci selezionati"
+                },
                 on: {
                   click: function($event) {
                     return _vm.updatePostsReadStatus(false)
@@ -25393,6 +25399,9 @@ var render = function() {
           _vm.showMarkAsFavoriteIcon
             ? _c("i", {
                 staticClass: "fas fa-star",
+                attrs: {
+                  title: "Imposta come preferiti gli annunci selezionati"
+                },
                 on: {
                   click: function($event) {
                     return _vm.markPostsAsFavorite(true)
@@ -25403,6 +25412,7 @@ var render = function() {
           _vm._v(" "),
           _c("i", {
             staticClass: "far fa-star",
+            attrs: { title: "Rimuovi annunci selezionati dai preferiti" },
             on: {
               click: function($event) {
                 return _vm.markPostsAsFavorite(false)

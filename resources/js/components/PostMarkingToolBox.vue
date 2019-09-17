@@ -2,12 +2,12 @@
 	<div class="marking_toolbox">
 		<input :checked="allChecked" @change="selectAll($event)" id="selectAllCheckBox" type="checkbox">
 		<div class="selection_icon d-inline" v-if="showIcons">
-			<i @click="updatePostsStatus(true)" class="fas fa-archive" v-if="showArchiveIcon"></i>
-			<i @click="updatePostsStatus(false)" class="fas fa-inbox" v-if="showInBoxIcon"></i>
-			<i @click="updatePostsReadStatus(true)" class="fas fa-envelope-open" v-if="showMarkAsReadIcon"></i>
-			<i @click="updatePostsReadStatus(false)" class="fas fa-envelope" v-if="showMarkAsUnreadIcon"></i>
-			<i @click="markPostsAsFavorite(true)" class="fas fa-star" v-if="showMarkAsFavoriteIcon"></i>
-			<i @click="markPostsAsFavorite(false)" class="far fa-star"></i>
+			<i title="Archivia gli annunci selezionati" @click="updatePostsStatus(true)" class="fas fa-archive" v-if="showArchiveIcon"></i>
+			<i title="Sposta in arrivo gli annunci selezionati" @click="updatePostsStatus(false)" class="fas fa-inbox" v-if="showInBoxIcon"></i>
+			<i title="Segna come letti gli annunci selezionati" @click="updatePostsReadStatus(true)" class="fas fa-envelope-open" v-if="showMarkAsReadIcon"></i>
+			<i title="Segna come non letti gli annunci selezionati" @click="updatePostsReadStatus(false)" class="fas fa-envelope" v-if="showMarkAsUnreadIcon"></i>
+			<i title="Imposta come preferiti gli annunci selezionati" @click="markPostsAsFavorite(true)" class="fas fa-star" v-if="showMarkAsFavoriteIcon"></i>
+			<i title="Rimuovi annunci selezionati dai preferiti" @click="markPostsAsFavorite(false)" class="far fa-star"></i>
 		</div>
 	</div>
 </template>
