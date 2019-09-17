@@ -43,7 +43,10 @@
 					$builder->where(
 					  function ($query) use ($value) {
 						  
-						  $query->where('title', 'LIKE', '%' . $value . '%')->orWhere('description', 'LIKE', '%' . $value . '%');
+						  $query->where('title', 'LIKE', '%' . $value . '%')
+							->orWhere('company_name', 'LIKE', '%' . $value . '%')
+							->orWhere('place', 'LIKE', '%' . $value . '%')
+							->orWhere('description', 'LIKE', '%' . $value . '%');
 					  });
 				}
 			}
