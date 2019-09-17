@@ -14,7 +14,7 @@
 			</div>
 			<div class="action_buttons mt-2">
 				<button @click="checkAll(true)" class="btn btn-sm btn-primary" type="button">Tutti</button>
-				<button @click="checkAll(false)" class="btn btn-sm btn-primary" type="button">Nessuno</button>
+				<button @click="checkAll(false)" class="btn btn-sm btn-primary ml-2" type="button">Nessuno</button>
 			</div>
 		</div>
 	</div>

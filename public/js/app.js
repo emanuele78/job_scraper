@@ -25718,7 +25718,7 @@ var render = function() {
           _c(
             "button",
             {
-              staticClass: "btn btn-sm btn-primary",
+              staticClass: "btn btn-sm btn-primary ml-2",
               attrs: { type: "button" },
               on: {
                 click: function($event) {
@@ -26113,51 +26113,54 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col-12" },
-            [
-              _c("app-post-marking-tool-box", {
-                attrs: {
-                  "all-checked": _vm.allChecked,
-                  "show-archive-icon": _vm.activeLabel == "inbox",
-                  "show-icons": _vm.showPostsMarkingToolbox,
-                  "show-in-box-icon": _vm.activeLabel == "archive",
-                  "show-mark-as-favorite-icon": _vm.activeLabel != "favorite",
-                  "show-mark-as-read-icon": _vm.showOnly != "only_read",
-                  "show-mark-as-unread-icon": _vm.showOnly != "only_unread"
-                },
-                on: {
-                  selectAll: function($event) {
-                    return _vm.selectAllPosts($event)
-                  },
-                  updatePostsFavoriteStatus: function($event) {
-                    return _vm.updatePostsFavoriteStatus({
-                      markAsFavorite: $event,
-                      postsIds: _vm.currentSelection
-                    })
-                  },
-                  updatePostsReadStatus: function($event) {
-                    return _vm.updatePostsReadStatus({
-                      markAsRead: $event,
-                      postsIds: _vm.currentSelection
-                    })
-                  },
-                  updatePostsStatus: function($event) {
-                    return _vm.updatePostsStatus({
-                      moveToArchive: $event,
-                      postsIds: _vm.currentSelection
-                    })
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("hr")
-            ],
-            1
-          )
-        ]),
+        _vm.jobPosts.length > 5
+          ? _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                { staticClass: "col-12" },
+                [
+                  _c("app-post-marking-tool-box", {
+                    attrs: {
+                      "all-checked": _vm.allChecked,
+                      "show-archive-icon": _vm.activeLabel == "inbox",
+                      "show-icons": _vm.showPostsMarkingToolbox,
+                      "show-in-box-icon": _vm.activeLabel == "archive",
+                      "show-mark-as-favorite-icon":
+                        _vm.activeLabel != "favorite",
+                      "show-mark-as-read-icon": _vm.showOnly != "only_read",
+                      "show-mark-as-unread-icon": _vm.showOnly != "only_unread"
+                    },
+                    on: {
+                      selectAll: function($event) {
+                        return _vm.selectAllPosts($event)
+                      },
+                      updatePostsFavoriteStatus: function($event) {
+                        return _vm.updatePostsFavoriteStatus({
+                          markAsFavorite: $event,
+                          postsIds: _vm.currentSelection
+                        })
+                      },
+                      updatePostsReadStatus: function($event) {
+                        return _vm.updatePostsReadStatus({
+                          markAsRead: $event,
+                          postsIds: _vm.currentSelection
+                        })
+                      },
+                      updatePostsStatus: function($event) {
+                        return _vm.updatePostsStatus({
+                          moveToArchive: $event,
+                          postsIds: _vm.currentSelection
+                        })
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("hr")
+                ],
+                1
+              )
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "row pb-5" }, [
           _c(

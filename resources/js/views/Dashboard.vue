@@ -101,7 +101,7 @@
 					</app-job-list-item>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" v-if="jobPosts.length>5">
 				<div class="col-12">
 					<app-post-marking-tool-box
 							:all-checked="allChecked"
