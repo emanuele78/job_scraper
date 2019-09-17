@@ -4,14 +4,15 @@ const actions = {
 
     async updatePostsStatus({getters, dispatch}, data) {
         try {
-            //need to check if active label == 'favorite'
-            if (getters.activeLabel === 'inbox' || getters.activeLabel === 'archived') {
+            //active label can be ony inbox or archive
+            if (getters.activeLabel === 'inbox' || getters.activeLabel === 'archive') {
                 dispatch('showLoading', true);
                 await update(data, getters, dispatch);
                 dispatch('search');
-            } else {
-                await update(data, getters, dispatch);
             }
+            // else {
+            //     await update(data, getters, dispatch);
+            // }
         } catch (e) {
             dispatch('showLoading', false);
             if (e.response.status === 401) {

@@ -3097,6 +3097,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -26096,6 +26113,52 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-12" },
+            [
+              _c("app-post-marking-tool-box", {
+                attrs: {
+                  "all-checked": _vm.allChecked,
+                  "show-archive-icon": _vm.activeLabel == "inbox",
+                  "show-icons": _vm.showPostsMarkingToolbox,
+                  "show-in-box-icon": _vm.activeLabel == "archive",
+                  "show-mark-as-favorite-icon": _vm.activeLabel != "favorite",
+                  "show-mark-as-read-icon": _vm.showOnly != "only_read",
+                  "show-mark-as-unread-icon": _vm.showOnly != "only_unread"
+                },
+                on: {
+                  selectAll: function($event) {
+                    return _vm.selectAllPosts($event)
+                  },
+                  updatePostsFavoriteStatus: function($event) {
+                    return _vm.updatePostsFavoriteStatus({
+                      markAsFavorite: $event,
+                      postsIds: _vm.currentSelection
+                    })
+                  },
+                  updatePostsReadStatus: function($event) {
+                    return _vm.updatePostsReadStatus({
+                      markAsRead: $event,
+                      postsIds: _vm.currentSelection
+                    })
+                  },
+                  updatePostsStatus: function($event) {
+                    return _vm.updatePostsStatus({
+                      moveToArchive: $event,
+                      postsIds: _vm.currentSelection
+                    })
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("hr")
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "row pb-5" }, [
           _c(
             "div",
@@ -46092,8 +46155,8 @@ var actions = {
               getters = _ref.getters, dispatch = _ref.dispatch;
               _context.prev = 1;
 
-              if (!(getters.activeLabel === 'inbox' || getters.activeLabel === 'archived')) {
-                _context.next = 9;
+              if (!(getters.activeLabel === 'inbox' || getters.activeLabel === 'archive')) {
+                _context.next = 7;
                 break;
               }
 
@@ -46103,19 +46166,13 @@ var actions = {
 
             case 6:
               dispatch('search');
-              _context.next = 11;
+
+            case 7:
+              _context.next = 13;
               break;
 
             case 9:
-              _context.next = 11;
-              return update(data, getters, dispatch);
-
-            case 11:
-              _context.next = 17;
-              break;
-
-            case 13:
-              _context.prev = 13;
+              _context.prev = 9;
               _context.t0 = _context["catch"](1);
               dispatch('showLoading', false);
 
@@ -46126,12 +46183,12 @@ var actions = {
                 dispatch('showError');
               }
 
-            case 17:
+            case 13:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 13]]);
+      }, _callee, null, [[1, 9]]);
     }));
 
     function updatePostsStatus(_x, _x2) {

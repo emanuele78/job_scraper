@@ -101,6 +101,23 @@
 					</app-job-list-item>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-12">
+					<app-post-marking-tool-box
+							:all-checked="allChecked"
+							:show-archive-icon="activeLabel=='inbox'"
+							:show-icons="showPostsMarkingToolbox"
+							:show-in-box-icon="activeLabel=='archive'"
+							:show-mark-as-favorite-icon="activeLabel!='favorite'"
+							:show-mark-as-read-icon="showOnly!='only_read'"
+							:show-mark-as-unread-icon="showOnly!='only_unread'"
+							@selectAll="selectAllPosts($event)"
+							@updatePostsFavoriteStatus="updatePostsFavoriteStatus({markAsFavorite: $event, postsIds: currentSelection})"
+							@updatePostsReadStatus="updatePostsReadStatus({markAsRead: $event, postsIds: currentSelection})"
+							@updatePostsStatus="updatePostsStatus({moveToArchive: $event, postsIds: currentSelection})"/>
+					<hr>
+				</div>
+			</div>
 			<div class="row pb-5">
 				<div class="col">
 					<app-pagination
