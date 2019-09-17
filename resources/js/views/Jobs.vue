@@ -5,9 +5,10 @@
 			<app-source-filter
 					:scrapers="scrapers"
 					@filterScrapers="filterScrapers($event)"
-					class="row mb-4"/>
+					class="row mb-5"/>
 			<app-keywords-box
 					:keywords="keywords"
+					:show-save-search-button="false"
 					@addKeyword="addKeyword($event)"
 					@removeKeyword="removeKeyword($event)"
 					class="row"/>

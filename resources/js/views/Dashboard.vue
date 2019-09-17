@@ -8,25 +8,25 @@
 					:favorite-count="favoriteCount"
 					:inbox-count="inBoxCount"
 					@switchToLabel="switchToLabel($event)"
-					class="row mb-4"/>
+					class="row mb-5"/>
 			<app-custom-label-creation
 					:activeCustomLabel="activeCustomLabel"
 					:labels="assignedLabels"
 					@createNewCustomLabel="createNewCustomLabel($event)"
 					@deleteCustomLabel="deleteCustomLabel($event)"
 					@switchToCustomLabel="switchToCustomLabel($event)"
-					class="row mb-4"/>
+					class="row mb-5"/>
 			<app-source-filter
 					:scrapers="scrapers"
 					@filterScrapers="filterScrapers($event)"
-					class="row mb-4"/>
+					class="row mb-5"/>
 			<app-keywords-box
 					:keywords="keywords"
 					:show-save-search-button="showSaveSearchButton"
 					@addKeyword="addKeyword($event)"
 					@removeKeyword="removeKeyword($event)"
 					@saveSearch="saveSearch()"
-					class="row mb-4"/>
+					class="row mb-5"/>
 			<app-show-only-box
 					:show-only="showOnly"
 					@changeShowOnly="changeShowOnly($event)"

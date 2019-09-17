@@ -3236,6 +3236,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -25813,7 +25814,7 @@ var render = function() {
         { staticClass: "col-sm-12 col-md-3 text-left mt-3" },
         [
           _c("app-user-post-navigation-box", {
-            staticClass: "row mb-4",
+            staticClass: "row mb-5",
             attrs: {
               "active-label": _vm.activeLabel,
               "archive-count": _vm.archivedCount,
@@ -25828,7 +25829,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("app-custom-label-creation", {
-            staticClass: "row mb-4",
+            staticClass: "row mb-5",
             attrs: {
               activeCustomLabel: _vm.activeCustomLabel,
               labels: _vm.assignedLabels
@@ -25847,7 +25848,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("app-source-filter", {
-            staticClass: "row mb-4",
+            staticClass: "row mb-5",
             attrs: { scrapers: _vm.scrapers },
             on: {
               filterScrapers: function($event) {
@@ -25857,7 +25858,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("app-keywords-box", {
-            staticClass: "row mb-4",
+            staticClass: "row mb-5",
             attrs: {
               keywords: _vm.keywords,
               "show-save-search-button": _vm.showSaveSearchButton
@@ -26236,7 +26237,7 @@ var render = function() {
         { staticClass: "col-sm-12 col-md-3 text-left mt-3" },
         [
           _c("app-source-filter", {
-            staticClass: "row mb-4",
+            staticClass: "row mb-5",
             attrs: { scrapers: _vm.scrapers },
             on: {
               filterScrapers: function($event) {
@@ -26247,7 +26248,7 @@ var render = function() {
           _vm._v(" "),
           _c("app-keywords-box", {
             staticClass: "row",
-            attrs: { keywords: _vm.keywords },
+            attrs: { keywords: _vm.keywords, "show-save-search-button": false },
             on: {
               addKeyword: function($event) {
                 return _vm.addKeyword($event)
