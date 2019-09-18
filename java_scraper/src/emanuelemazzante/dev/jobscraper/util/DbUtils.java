@@ -133,6 +133,7 @@ public class DbUtils {
             System.out.println(e);
             e.printStackTrace();
         }
+        System.out.println("*** REPORT SCRAPER " + scraperReport.getSourceId() + ": annunci aggiunti " + scraperReport.getJobs_added() + " - annunci saltati " + scraperReport.getJobs_skipped());
     }
 
     private static int reportExists(int sourceId, String region) {

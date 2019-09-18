@@ -23,7 +23,7 @@ public class Main {
 
     private static final boolean USE_FIDDLER = false;
     private static final int SCRAPE_ALL = -1;
-    //private static final int SCRAPE_ONLY_THIS = 1;
+    private static final int SCRAPE_ONLY_THIS_SOURCE = 9;
     
 
     private static void setFiddler() {

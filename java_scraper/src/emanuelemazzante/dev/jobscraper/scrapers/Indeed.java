@@ -91,7 +91,7 @@ public class Indeed extends ScraperBase {
         } catch (Exception e) {
             report = new ScraperReport(region, sourceId, jobAdded, jobSkipped, true);
         }
-        DbUtils.addReport(report);
+        DbUtils.addReport(report);        
     }
 
     private Document loadPage(int start) throws Exception {
@@ -156,9 +156,9 @@ public class Indeed extends ScraperBase {
         if (responseCode == 302) {
             String redirectLink = doc.selectFirst("a").attr("href");
             if (redirectLink.startsWith("http:")) {
-                redirectLink = redirectLink.replace("http:", "https:");                           
+                redirectLink = redirectLink.replace("http:", "https:");
             }
-            return getPostContent(redirectLink);            
+            return getPostContent(redirectLink);
         } else {
             return doc;
         }

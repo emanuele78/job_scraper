@@ -82,7 +82,7 @@ public class GiGroup extends ScraperBase {
         } catch (Exception e) {
             report = new ScraperReport(region, sourceId, jobAdded, jobSkipped, true);
         }
-        DbUtils.addReport(report);
+        DbUtils.addReport(report);        
     }
 
     public void loadJobs() throws Exception {
