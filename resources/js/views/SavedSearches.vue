@@ -16,7 +16,7 @@
 						<span class="label text-muted">Parole chiave</span>
 						<span v-for="(keyword, index) in savedSearch.keywords"><strong>{{keyword | capitalize}}</strong>{{index < savedSearch.keywords.length-1?', ':''}}</span>
 						<span class="label text-muted">Ricerca creata il</span>
-						<span><strong>{{savedSearch.created_at | localize}}</strong></span>
+						<span><strong>{{savedSearch.created_at | localize_from_utc}}</strong></span>
 						<div class="actions_wrapper">
 							<div class="">
 								<span class="label text-muted">Notifica email nuovi annunci</span>
