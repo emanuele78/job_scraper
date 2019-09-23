@@ -25,6 +25,14 @@ const actions = {
             dispatch('showError');
         }
     },
+    async startScraper({commit}) {
+        try {
+            const SCRAPER_STATUS_STARTED = 1;
+            commit('setScraperStatus', SCRAPER_STATUS_STARTED);
+            await services.launchScraper();
+        } catch (e) {
+        }
+    }
 };
 
 const getters = {

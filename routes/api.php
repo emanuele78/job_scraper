@@ -26,6 +26,9 @@
 		  
 		  //store new password
 		  Route::post('password_reset', 'Api\AuthController@saveNewPassword');
+		  
+		  //start scraper
+		  Route::post('scrapers/start', 'Api\ScraperController@store');
 	  });
 	
 	//auth routes

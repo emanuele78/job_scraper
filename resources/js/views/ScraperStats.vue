@@ -3,9 +3,12 @@
 		<div class="col-12 text-left">
 			<div class="header mt-4 mb-4">
 				<h4>Statistiche dello scraper</h4>
-				<h6>Scraper:
-					<span :class="{'text-primary':!scraperStatus, 'text-success':scraperStatus}">{{scraperStatus? 'running':'Stand-by'}}</span>
-				</h6>
+				<div class="header_right">
+					<h6 class="d-inline mr-3">Scraper:
+						<span :class="{'text-primary':!scraperStatus, 'text-success':scraperStatus}">{{scraperStatus? 'running':'Stand-by'}}</span>
+					</h6>
+					<button :disabled="scraperStatus===1" @click="startScraper()" class="btn btn-primary btn-sm" type="button">Avvia scraper</button>
+				</div>
 			</div>
 		</div>
 		<div class="col-12">
@@ -39,10 +42,14 @@
 
 <script>
     import {mapGetters} from 'vuex';
+    import {mapActions} from 'vuex';
 
     export default {
         computed: {
             ...mapGetters(['stats', 'scraperStatus']),
+        },
+        methods: {
+            ...mapActions(['startScraper']),
         },
         created() {
             this.$store.dispatch('readScraperStats');

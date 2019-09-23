@@ -29,6 +29,10 @@ function getScrapersStats() {
     return axios.get('/reports');
 }
 
+function launchScraper() {
+    return axios.post('scrapers/start');
+}
+
 function doSignin(data) {
     return axios.post('/register', data);
 }
@@ -240,4 +244,5 @@ export default {
     saveSearch,
     requestPasswordReset,
     saveNewPassword,
+    launchScraper,
 }

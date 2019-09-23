@@ -3731,9 +3731,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['stats', 'scraperStatus'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['startScraper'])),
   created: function created() {
     this.$store.dispatch('readScraperStats');
   }
@@ -27105,7 +27110,11 @@ var render = function() {
                         _c("span", [
                           _c("strong", [
                             _vm._v(
-                              _vm._s(_vm._f("localize")(savedSearch.created_at))
+                              _vm._s(
+                                _vm._f("localize_from_utc")(
+                                  savedSearch.created_at
+                                )
+                              )
                             )
                           ])
                         ]),
@@ -27257,17 +27266,33 @@ var render = function() {
       _c("div", { staticClass: "header mt-4 mb-4" }, [
         _c("h4", [_vm._v("Statistiche dello scraper")]),
         _vm._v(" "),
-        _c("h6", [
-          _vm._v("Scraper:\n\t\t\t\t"),
+        _c("div", { staticClass: "header_right" }, [
+          _c("h6", { staticClass: "d-inline mr-3" }, [
+            _vm._v("Scraper:\n\t\t\t\t\t"),
+            _c(
+              "span",
+              {
+                class: {
+                  "text-primary": !_vm.scraperStatus,
+                  "text-success": _vm.scraperStatus
+                }
+              },
+              [_vm._v(_vm._s(_vm.scraperStatus ? "running" : "Stand-by"))]
+            )
+          ]),
+          _vm._v(" "),
           _c(
-            "span",
+            "button",
             {
-              class: {
-                "text-primary": !_vm.scraperStatus,
-                "text-success": _vm.scraperStatus
+              staticClass: "btn btn-primary btn-sm",
+              attrs: { disabled: _vm.scraperStatus === 1, type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.startScraper()
+                }
               }
             },
-            [_vm._v(_vm._s(_vm.scraperStatus ? "running" : "Stand-by"))]
+            [_vm._v("Avvia scraper")]
           )
         ])
       ])
@@ -46951,6 +46976,44 @@ var actions = {
     }
 
     return readScraperStats;
+  }(),
+  startScraper: function () {
+    var _startScraper = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
+      var commit, SCRAPER_STATUS_STARTED;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              SCRAPER_STATUS_STARTED = 1;
+              commit('setScraperStatus', SCRAPER_STATUS_STARTED);
+              _context2.next = 6;
+              return _services__WEBPACK_IMPORTED_MODULE_1__["default"].launchScraper();
+
+            case 6:
+              _context2.next = 10;
+              break;
+
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](1);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 8]]);
+    }));
+
+    function startScraper(_x2) {
+      return _startScraper.apply(this, arguments);
+    }
+
+    return startScraper;
   }()
 };
 var getters = {
@@ -47138,6 +47201,10 @@ function searchJobPostsForGuest(checkedScrapers, orderMode, keywords, postsPerPa
 
 function getScrapersStats() {
   return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/reports');
+}
+
+function launchScraper() {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('scrapers/start');
 }
 
 function doSignin(data) {
@@ -47392,7 +47459,8 @@ function saveSearch(token, data) {
   deleteSavedSearch: deleteSavedSearch,
   saveSearch: saveSearch,
   requestPasswordReset: requestPasswordReset,
-  saveNewPassword: saveNewPassword
+  saveNewPassword: saveNewPassword,
+  launchScraper: launchScraper
 });
 
 /***/ }),
