@@ -4,10 +4,13 @@
 			<div class="header mt-4 mb-4">
 				<h4>Statistiche dello scraper</h4>
 				<div class="header_right">
-					<h6 class="d-inline mr-3">Scraper:
+					<h6 class="d-inline">Scraper:
 						<span :class="{'text-primary':!scraperStatus, 'text-success':scraperStatus}">{{scraperStatus? 'running':'Stand-by'}}</span>
 					</h6>
-					<button :disabled="scraperStatus===1" @click="startScraper()" class="btn btn-primary btn-sm" type="button">Avvia scraper</button>
+					<button :disabled="scraperStatus===1" @click="startScraper()" class="btn btn-primary btn-sm ml-3" type="button">Avvia scraper</button>
+					<button @click="readScraperStats()" class="btn btn-primary btn-sm ml-3" type="button" v-if="scraperStatus===1">
+						<i class="fas fa-sync"></i>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -49,7 +52,7 @@
             ...mapGetters(['stats', 'scraperStatus']),
         },
         methods: {
-            ...mapActions(['startScraper']),
+            ...mapActions(['startScraper', 'readScraperStats']),
         },
         created() {
             this.$store.dispatch('readScraperStats');

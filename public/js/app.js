@@ -3734,11 +3734,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['stats', 'scraperStatus'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['startScraper'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['startScraper', 'readScraperStats'])),
   created: function created() {
     this.$store.dispatch('readScraperStats');
   }
@@ -27267,7 +27270,7 @@ var render = function() {
         _c("h4", [_vm._v("Statistiche dello scraper")]),
         _vm._v(" "),
         _c("div", { staticClass: "header_right" }, [
-          _c("h6", { staticClass: "d-inline mr-3" }, [
+          _c("h6", { staticClass: "d-inline" }, [
             _vm._v("Scraper:\n\t\t\t\t\t"),
             _c(
               "span",
@@ -27284,7 +27287,7 @@ var render = function() {
           _c(
             "button",
             {
-              staticClass: "btn btn-primary btn-sm",
+              staticClass: "btn btn-primary btn-sm ml-3",
               attrs: { disabled: _vm.scraperStatus === 1, type: "button" },
               on: {
                 click: function($event) {
@@ -27293,7 +27296,23 @@ var render = function() {
               }
             },
             [_vm._v("Avvia scraper")]
-          )
+          ),
+          _vm._v(" "),
+          _vm.scraperStatus === 1
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary btn-sm ml-3",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.readScraperStats()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-sync" })]
+              )
+            : _vm._e()
         ])
       ])
     ]),

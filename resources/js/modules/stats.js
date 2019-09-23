@@ -32,7 +32,7 @@ const actions = {
             await services.launchScraper();
         } catch (e) {
         }
-    }
+    },
 };
 
 const getters = {
