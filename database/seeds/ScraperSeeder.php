@@ -43,6 +43,10 @@
 			  [
 				'name' => 'linkedin',
 				'showed_name' => 'linkedin'
+			  ],
+			  [
+				'name' => 'portalelavoro',
+				'showed_name' => 'portale lavoro'
 			  ]
 			];
 			foreach ($scrapers as $scraper) {
