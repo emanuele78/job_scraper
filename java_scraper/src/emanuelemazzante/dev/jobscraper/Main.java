@@ -39,7 +39,7 @@ public class Main {
         //setting region
         final String REGION = "marche";
         //check for execute only
-        int executeOnly = SCRAPE_ONLY_THIS_SOURCE;
+        int executeOnly = SCRAPE_ALL;
         if(args.length !=0){
             executeOnly = Integer.parseInt(args[0]);
         }
