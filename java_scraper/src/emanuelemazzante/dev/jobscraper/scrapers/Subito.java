@@ -1,4 +1,4 @@
-package emanuelemazzante.dev.jobscraper.scrapers;
+    package emanuelemazzante.dev.jobscraper.scrapers;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

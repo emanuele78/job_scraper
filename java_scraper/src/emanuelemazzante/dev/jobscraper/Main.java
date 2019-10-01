@@ -18,12 +18,13 @@ import emanuelemazzante.dev.jobscraper.scrapers.Subito;
 import emanuelemazzante.dev.jobscraper.util.DbUtils;
 import emanuelemazzante.dev.jobscraper.model.ScraperObject;
 import emanuelemazzante.dev.jobscraper.scrapers.Linkedin;
+import emanuelemazzante.dev.jobscraper.scrapers.PortaleLavoro;
 
 public class Main {
 
     private static final boolean USE_FIDDLER = false;
     private static final int SCRAPE_ALL = -1;
-    private static final int SCRAPE_ONLY_THIS_SOURCE = 9;
+    private static final int SCRAPE_ONLY_THIS_SOURCE = 10;
     
 
     private static void setFiddler() {
@@ -86,6 +87,9 @@ public class Main {
                         break;
                     case "linkedin":
                         Linkedin.startScrape(scraperId, region);
+                        break;
+                    case "portalelavoro":
+                        PortaleLavoro.startScrape(scraperId, region);
                         break;
                     default:
                         System.out.println("Scraper non supportato");

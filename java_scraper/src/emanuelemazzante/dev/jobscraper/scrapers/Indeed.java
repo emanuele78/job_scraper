@@ -66,7 +66,7 @@ public class Indeed extends ScraperBase {
                 }
             }
             br.close();
-        } catch (Exception e) {
+        } catch (Exception e) {            
             ScraperReport report = new ScraperReport(region, sourceId, jobAdded, jobSkipped, true);
             DbUtils.addReport(report);
             proceed = false;
@@ -89,6 +89,7 @@ public class Indeed extends ScraperBase {
             //done
             report = new ScraperReport(region, sourceId, jobAdded, jobSkipped);
         } catch (Exception e) {
+            e.printStackTrace();
             report = new ScraperReport(region, sourceId, jobAdded, jobSkipped, true);
         }
         DbUtils.addReport(report);        
