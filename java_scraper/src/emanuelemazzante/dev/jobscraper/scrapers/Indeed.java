@@ -66,7 +66,7 @@ public class Indeed extends ScraperBase {
                 }
             }
             br.close();
-        } catch (Exception e) {            
+        } catch (Exception e) {
             ScraperReport report = new ScraperReport(region, sourceId, jobAdded, jobSkipped, true);
             DbUtils.addReport(report);
             proceed = false;
@@ -92,7 +92,7 @@ public class Indeed extends ScraperBase {
             e.printStackTrace();
             report = new ScraperReport(region, sourceId, jobAdded, jobSkipped, true);
         }
-        DbUtils.addReport(report);        
+        DbUtils.addReport(report);
     }
 
     private Document loadPage(int start) throws Exception {
@@ -144,6 +144,7 @@ public class Indeed extends ScraperBase {
         con.setRequestProperty("Referer", "https://it.indeed.com/advanced_search?q=&l=" + region);
         //con.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
         con.setRequestProperty("Accept-Language", "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7");
+        //con.setInstanceFollowRedirects(false);
         con.setConnectTimeout(60000);
         con.connect();
         int responseCode = con.getResponseCode();
@@ -167,7 +168,11 @@ public class Indeed extends ScraperBase {
 
     private String loadContent(String url) throws Exception {
         Document doc = getPostContent(url);
-        return doc.getElementById("jobDescriptionText").text();
+        Element content = doc.getElementById("jobDescriptionText");
+        if (content != null) {
+            return content.text();
+        }
+        return doc.getElementById("job-description").text();
     }
 
     private void scrapePosts(Document doc) throws Exception {
