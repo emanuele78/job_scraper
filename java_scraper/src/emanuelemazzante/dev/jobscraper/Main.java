@@ -24,7 +24,7 @@ public class Main {
 
     private static final boolean USE_FIDDLER = false;
     private static final int SCRAPE_ALL = -1;
-    private static final int SCRAPE_ONLY_THIS_SOURCE = 1;
+    private static final int SCRAPE_ONLY_THIS_SOURCE = 10;
     
 
     private static void setFiddler() {
@@ -39,7 +39,7 @@ public class Main {
         //setting region
         final String REGION = "marche";
         //check for execute only
-        int executeOnly = SCRAPE_ALL;
+        int executeOnly = SCRAPE_ONLY_THIS_SOURCE;
         if(args.length !=0){
             executeOnly = Integer.parseInt(args[0]);
         }

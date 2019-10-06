@@ -26241,25 +26241,47 @@ var render = function() {
       [
         _c("h3", [_vm._v("Benvenuto in Job Scraper!")]),
         _vm._v(" "),
+        _c(
+          "p",
+          { staticClass: "mt-4" },
+          [
+            _c("strong", [_vm._v("Job Scraper")]),
+            _vm._v(
+              " è un aggregatore di annunci di lavoro presenti in altri portali. Gli annunci vengono prelevati tramite uno\n\t\t\t"
+            ),
+            _c(
+              "a",
+              { attrs: { href: "https://it.wikipedia.org/wiki/Web_scraping" } },
+              [_vm._v("scraper")]
+            ),
+            _vm._v(
+              " programmato in Java. E' possibile impostare un cron job nel server in modo da prelevare gli annunci in determinati orari durante il giorno. Ai fini della presente demo non sono stati impostati cron job ma lo scraper può essere avviato manualmente nell'apposita "
+            ),
+            _c("router-link", { attrs: { to: { name: "scraper" } } }, [
+              _vm._v("pagina")
+            ]),
+            _vm._v(".\n\t\t")
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "E' possibile effettuare delle ricerche, escludere determinate fonti e ordinare i risultati in base ad alcuni criteri. L'utente registrato può gestire gli annunci come se fosse una casella di posta elettronica, archiviarli, filtrarli per letto/non letto, impostare dei preferiti e assegnare delle etichette personalizzate."
+          )
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "Inoltre gli utenti registrati possono salvare delle ricerche impostando termini specifici. Quando lo scraper rileva annunci contenenti tali termini, gli utenti registrati ricevono un avviso tramite e-mail."
+          )
+        ]),
+        _vm._v(" "),
         _vm._m(0),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "E' possibile effettuare delle ricerche, escludere determinate fonti e ordinare i risultati in base ad alcuni criteri. L'utente registrato può gestire gli annunci al pari di una casella di posta elettronica, archiviarli, filtrarli per letto/non letto, impostare dei preferiti e assegnare delle etichette personalizzate."
-          )
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "Inoltre gli utenti registrati possono impostare delle ricerche attivando degli avvisi in modo da ricevere delle notifiche quando lo scraper rileva nuovi annunci corrispondenti."
-          )
-        ]),
         _vm._v(" "),
         _vm._m(1),
         _vm._v(" "),
         _vm._m(2),
-        _vm._v(" "),
-        _vm._m(3),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
@@ -26272,23 +26294,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "mt-4" }, [
-      _c("strong", [_vm._v("Job Scraper")]),
-      _vm._v(
-        " è un aggregatore di annunci di lavoro presenti in altri portali. Gli annunci vengono prelevati più volte al giorno tramite uno\n\t\t\t"
-      ),
-      _c(
-        "a",
-        { attrs: { href: "https://it.wikipedia.org/wiki/Web_scraping" } },
-        [_vm._v("scraper")]
-      ),
-      _vm._v(" programmato in Java.\n\t\t")
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
